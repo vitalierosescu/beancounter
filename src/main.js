@@ -2,6 +2,7 @@ import gsap from 'gsap'
 import { BREAKPOINTS } from './utils/breakpoints.js'
 import { initHome } from './pages/home.js'
 import { initContact } from './pages/contact.js'
+import { initPricing } from './pages/pricing.js'
 import { initGlobal } from './global.js'
 
 ;(() => {
@@ -30,6 +31,7 @@ import { initGlobal } from './global.js'
 
     if (page.classList.contains('is-home')) initHome()
     if (page.classList.contains('is-contact')) initContact()
+    if (page.classList.contains('is-pricing')) initPricing()
 
     initGlobal()
   }
