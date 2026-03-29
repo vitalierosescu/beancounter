@@ -66,11 +66,6 @@ function queryDOM(wrapper) {
       optimize: q('[data-pricing-card="optimize"] [data-pricing-toggle]'),
       myminfin: q('[data-pricing-card="myminfin"] [data-pricing-toggle]'),
     },
-    details: {
-      pb: q('[data-pricing-card="pb"] [data-pricing-details]'),
-      blt: q('[data-pricing-card="blt"] [data-pricing-details]'),
-      optimize: q('[data-pricing-card="optimize"] [data-pricing-details]'),
-    },
     sliders: {
       pb: q('[data-pricing-card="pb"] [data-pricing-slider]'),
       blt: q('[data-pricing-card="blt"] [data-pricing-slider]'),
@@ -80,10 +75,30 @@ function queryDOM(wrapper) {
       blt: q('[data-pricing-card="blt"] [data-pricing-input]'),
     },
     prices: {
-      pb: q('[data-pricing-card="pb"] [data-pricing-price]'),
-      blt: q('[data-pricing-card="blt"] [data-pricing-price]'),
       optimize: q('[data-pricing-card="optimize"] [data-pricing-price]'),
       optimizeOriginal: q('[data-pricing-card="optimize"] [data-pricing-price-original]'),
+    },
+    cardTotals: {
+      pb: q('[data-pricing-card="pb"] [data-pricing-card-total]'),
+      blt: q('[data-pricing-card="blt"] [data-pricing-card-total]'),
+    },
+    cardQty: {
+      pb: q('[data-pricing-card="pb"] [data-pricing-card-qty]'),
+      blt: q('[data-pricing-card="blt"] [data-pricing-card-qty]'),
+    },
+    cardUnit: {
+      pb: q('[data-pricing-card="pb"] [data-pricing-card-unit]'),
+      blt: q('[data-pricing-card="blt"] [data-pricing-card-unit]'),
+    },
+    rangeLabels: {
+      pb: {
+        min: q('[data-pricing-card="pb"] [data-pricing-range-min]'),
+        max: q('[data-pricing-card="pb"] [data-pricing-range-max]'),
+      },
+      blt: {
+        min: q('[data-pricing-card="blt"] [data-pricing-range-min]'),
+        max: q('[data-pricing-card="blt"] [data-pricing-range-max]'),
+      },
     },
     tierButtons: qAll('[data-pricing-tier]'),
     myminfin: {
@@ -110,6 +125,14 @@ function queryDOM(wrapper) {
         optimize: q('[data-summary-remove="optimize"]'),
         myminfin: q('[data-summary-remove="myminfin"]'),
       },
+      qty: {
+        pb: q('[data-summary-qty="pb"]'),
+        blt: q('[data-summary-qty="blt"]'),
+      },
+      unit: {
+        pb: q('[data-summary-unit="pb"]'),
+        blt: q('[data-summary-unit="blt"]'),
+      },
       total: q('[data-summary-total]'),
       monthly: q('[data-summary-monthly]'),
       earlybird: q('[data-summary-earlybird]'),
@@ -120,12 +143,8 @@ function queryDOM(wrapper) {
   }
 }
 
-function initDetails(dom) {
-  ;['pb', 'blt', 'optimize'].forEach((key) => {
-    const details = dom.details[key]
-    if (!details) return
-    gsap.set(details, { height: 0, display: 'none', overflow: 'hidden' })
-  })
+function initDetails() {
+  // Details expand/collapse handled by CSS via .is-active on the card
 }
 
 function bindEvents(dom, state, config) {
@@ -221,23 +240,6 @@ function render(dom, state, config) {
     dom.cards.myminfin.classList.toggle('is-disabled', !isCombo)
   }
 
-  ;['pb', 'blt', 'optimize'].forEach((key) => {
-    const details = dom.details[key]
-    if (!details) return
-
-    if (state[key].active) {
-      gsap.set(details, { display: 'block' })
-      gsap.to(details, { height: 'auto', duration: 0.35, ease: 'power2.inOut' })
-    } else {
-      gsap.to(details, {
-        height: 0,
-        duration: 0.35,
-        ease: 'power2.inOut',
-        onComplete: () => gsap.set(details, { display: 'none' }),
-      })
-    }
-  })
-
   ;['pb', 'blt'].forEach((key) => {
     const slider = dom.sliders[key]
     const input = dom.inputs[key]
@@ -249,8 +251,24 @@ function render(dom, state, config) {
     input.value = state[key].quantity
   })
 
-  if (dom.prices.pb) dom.prices.pb.textContent = formatPrice(result.pbCost)
-  if (dom.prices.blt) dom.prices.blt.textContent = formatPrice(result.bltCost)
+  // Card total boxes (purple box next to slider)
+  ;['pb', 'blt'].forEach((key) => {
+    if (!state[key].active) return
+
+    const cost = key === 'pb' ? result.pbCost : result.bltCost
+
+    if (dom.cardTotals[key]) dom.cardTotals[key].textContent = formatPrice(cost)
+    if (dom.cardQty[key]) dom.cardQty[key].textContent = state[key].quantity.toLocaleString('nl-BE')
+    if (dom.cardUnit[key]) dom.cardUnit[key].textContent = config[key].unitPrice
+  })
+
+  // Range min/max labels
+  ;['pb', 'blt'].forEach((key) => {
+    const labels = dom.rangeLabels[key]
+    if (!labels) return
+    if (labels.min) labels.min.textContent = config[key].min.toLocaleString('nl-BE')
+    if (labels.max) labels.max.textContent = config[key].max.toLocaleString('nl-BE')
+  })
 
   if (dom.prices.optimize) {
     if (state.optimize.active && state.optimize.tier) {
@@ -293,6 +311,12 @@ function render(dom, state, config) {
 
   if (dom.summary.prices.pb) dom.summary.prices.pb.textContent = formatPrice(result.pbCost)
   if (dom.summary.prices.blt) dom.summary.prices.blt.textContent = formatPrice(result.bltCost)
+
+  // Summary qty/unit
+  ;['pb', 'blt'].forEach((key) => {
+    if (dom.summary.qty[key]) dom.summary.qty[key].textContent = state[key].quantity.toLocaleString('nl-BE')
+    if (dom.summary.unit[key]) dom.summary.unit[key].textContent = config[key].unitPrice
+  })
   if (dom.summary.prices.optimize)
     dom.summary.prices.optimize.textContent = formatPrice(result.optimizeCost)
   if (dom.summary.prices.myminfin) {
@@ -309,7 +333,7 @@ function render(dom, state, config) {
   if (dom.summary.monthly) {
     dom.summary.monthly.classList.toggle('is-hidden', !hasAnyActive || result.isEnterprise)
     dom.summary.monthly.textContent =
-      result.monthly !== null ? formatPrice(result.monthly) + '/maand' : ''
+      result.monthly !== null ? formatPrice(result.monthly) : ''
   }
 
   if (dom.summary.enterprise) {

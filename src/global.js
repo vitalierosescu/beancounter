@@ -1,4 +1,6 @@
 import { splitReveal } from './utils/splitReveal.js'
+import { initSliderVideoLazyLoad } from './utils/videoLazyLoad.js'
+import { initBunnyLightboxPlayer } from './utils/bunnyLightboxPlayer.js'
 
 function initTextAnimations() {
   document.querySelectorAll('[data-split]').forEach((el) => {
@@ -76,7 +78,7 @@ function initDrawPathOnScroll() {
         const desktopSVG = children[0]
         const mobileSVG = children[1] // optional
 
-        let svgToUse = isMobile && mobileSVG ? mobileSVG : desktopSVG
+        const svgToUse = isMobile && mobileSVG ? mobileSVG : desktopSVG
 
         const paths = svgToUse.querySelectorAll('path')
         if (!paths.length) return
@@ -92,7 +94,7 @@ function initDrawPathOnScroll() {
         if (!isHero) {
           tlConfig.scrollTrigger = {
             trigger: wrap,
-            start: 'clamp(top center)',
+            start: 'clamp(top bottom)',
             end: 'clamp(bottom center)',
             invalidateOnRefresh: true,
           }
@@ -103,7 +105,7 @@ function initDrawPathOnScroll() {
         tl.fromTo(
           paths,
           { drawSVG: 0 },
-          { drawSVG: '100%', duration: 1.6, stagger: paths.length > 1 ? 0.3 : 0 }
+          { drawSVG: '100%', duration: 2.4, stagger: paths.length > 1 ? 0.3 : 0 }
         )
 
         // Keep a reference so we can kill it on breakpoint change
@@ -359,8 +361,8 @@ function initCascadingSlider() {
     let activeIndex = 0
     let isAnimating = false
     let slideWidth = 0
-    let slotCenters = {}
-    let slotWidths = {}
+    const slotCenters = {}
+    const slotWidths = {}
 
     function readGap() {
       const raw = getComputedStyle(viewport).getPropertyValue('--gap').trim()
@@ -563,4 +565,6 @@ export function initGlobal() {
   initTabSystem()
   initFaq()
   initCascadingSlider()
+  initSliderVideoLazyLoad()
+  initBunnyLightboxPlayer()
 }
