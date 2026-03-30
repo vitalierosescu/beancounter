@@ -84,6 +84,7 @@ function initDrawPathOnScroll() {
         if (!paths.length) return
 
         const isHero = wrap.closest('[class*="hero"]') !== null
+        const isHomeHero = wrap.closest('[data-hero="home"]') !== null
 
         const tlConfig = {
           defaults: {
@@ -91,7 +92,14 @@ function initDrawPathOnScroll() {
           },
         }
 
-        if (!isHero) {
+        if (isHomeHero) {
+          tlConfig.scrollTrigger = {
+            trigger: wrap,
+            start: 'top 40%%',
+            end: 'bottom 30%',
+            scrub: true,
+          }
+        } else if (!isHero) {
           tlConfig.scrollTrigger = {
             trigger: wrap,
             start: 'clamp(top bottom)',
