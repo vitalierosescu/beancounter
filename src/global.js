@@ -346,6 +346,7 @@ function initCascadingSlider() {
 
   function setupInstance(wrapper) {
     const viewport = wrapper.querySelector('[data-cascading-viewport]')
+    if (!viewport) return
     const prevButton = wrapper.querySelector('[data-cascading-slider-prev]')
     const nextButton = wrapper.querySelector('[data-cascading-slider-next]')
     const slides = Array.from(viewport.querySelectorAll('[data-cascading-slide]'))
