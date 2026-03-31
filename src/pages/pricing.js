@@ -24,10 +24,12 @@ function readConfig(wrapper) {
   if (pbCard) {
     config.pb.min = Number(pbCard.dataset.min) || config.pb.min
     config.pb.max = Number(pbCard.dataset.max) || config.pb.max
+    if (pbCard.dataset.default) config.pb.default = Number(pbCard.dataset.default)
   }
   if (bltCard) {
     config.blt.min = Number(bltCard.dataset.min) || config.blt.min
     config.blt.max = Number(bltCard.dataset.max) || config.blt.max
+    if (bltCard.dataset.default) config.blt.default = Number(bltCard.dataset.default)
   }
 
   const tierButtons = wrapper.querySelectorAll('[data-pricing-tier]')
@@ -132,6 +134,7 @@ function queryDOM(wrapper) {
       unit: {
         pb: q('[data-summary-unit="pb"]'),
         blt: q('[data-summary-unit="blt"]'),
+        optimize: q('[data-summary-unit="optimize"]'),
       },
       total: q('[data-summary-total]'),
       monthly: q('[data-summary-monthly]'),
@@ -226,6 +229,14 @@ function clampValue(val, min, max) {
   return Math.min(max, Math.max(min, val))
 }
 
+function updateSliderFill(slider) {
+  const min = Number(slider.min)
+  const max = Number(slider.max)
+  const val = Number(slider.value)
+  const percent = ((val - min) / (max - min)) * 100
+  slider.style.background = `linear-gradient(to right, #565AF5 ${percent}%, #ccc ${percent}%)`
+}
+
 function render(dom, state, config) {
   const result = calculate(state, config)
   const isCombo = result.isCombo
@@ -249,6 +260,7 @@ function render(dom, state, config) {
     slider.max = config[key].max
     slider.value = state[key].quantity
     input.value = state[key].quantity
+    updateSliderFill(slider)
   })
 
   // Card total boxes (purple box next to slider)
@@ -319,6 +331,10 @@ function render(dom, state, config) {
   })
   if (dom.summary.prices.optimize)
     dom.summary.prices.optimize.textContent = formatPrice(result.optimizeCost)
+  if (dom.summary.unit.optimize && state.optimize.tier) {
+    const tierLabel = config.optimize.tiers[state.optimize.tier]?.label || ''
+    dom.summary.unit.optimize.textContent = tierLabel
+  }
   if (dom.summary.prices.myminfin) {
     dom.summary.prices.myminfin.textContent = state.myminfin.active
       ? formatPrice(result.myminfinCost) + '/jaar'

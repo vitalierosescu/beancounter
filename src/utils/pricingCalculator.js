@@ -15,10 +15,9 @@ export const DEFAULT_CONFIG = {
 }
 
 export function createState(config) {
-  const defaultQty = Math.round(config.pb.max / 4)
   return {
-    pb: { active: false, quantity: defaultQty },
-    blt: { active: false, quantity: defaultQty },
+    pb: { active: false, quantity: config.pb.default || Math.round(config.pb.max / 4) },
+    blt: { active: false, quantity: config.blt.default || Math.round(config.blt.max / 4) },
     optimize: { active: false, tier: null },
     myminfin: { active: false },
   }
