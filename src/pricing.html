@@ -1,761 +1,230 @@
-<section data-pricing="calculator" class="section_pricing bg-secondary">
-  <div class="padding-global">
-    <div class="container-medium">
-      <div class="padding-section-medium">
-        <div class="u-embed-css w-embed">
-          <style>
-            :root {
-              --ease-out: cubic-bezier(0.25, 0, 0.25, 1);
-              --duration: 0.3s;
-            }
-
-            .calc_product_radio-check {
-              transition: opacity var(--duration) var(--ease-out);
-            }
-
-            .calc_product_item {
-              transition:
-                background var(--duration) var(--ease-out),
-                border var(--duration) var(--ease-out);
-            }
-
-            .calc_product_radio-btn {
-              transition:
-                background var(--duration) var(--ease-out),
-                border var(--duration) var(--ease-out);
-            }
-
-            .wf-design-mode {
-              .calc_product_bottom-wrap {
-                grid-template-rows: 1fr;
-              }
-            }
-
-            .calc_product_bottom-wrap {
-              transition: grid-template-rows var(--duration) var(--ease-out);
-            }
-
-            .calc_product_item.is-active {
-              .calc_product_radio-check {
-                opacity: 1;
-              }
-              .calc_product_radio-btn {
-                background: var(--_theme---background--bg-highlight);
-                border: 1px solid transparent;
-              }
-
-              .check_icon {
-                color: white;
-              }
-              .calc_product_bottom-wrap {
-                grid-template-rows: 1fr;
-              }
-            }
-          </style>
-        </div>
-        <div class="u-embed-css w-embed">
-          <style>
-            input[type='range'] {
-              -webkit-appearance: none;
-              appearance: none;
-              width: 100%;
-              cursor: pointer;
-              outline: none;
-              border-radius: 15px;
-              height: 6px;
-              background: #ccc;
-            }
-
-            /* Thumb: webkit */
-            input[type='range']::-webkit-slider-thumb {
-              -webkit-appearance: none;
-              appearance: none;
-              height: 24px;
-              width: 24px;
-              background-color: white;
-              background-size: cover;
-              border-radius: 50%;
-              border: none;
-              transition: 0.2s ease-in-out;
-              box-shadow: 1px 4px 16px -4px rgba(0, 0, 0, 0.12);
-            }
-
-            /* Thumb: Firefox */
-            input[type='range']::-moz-range-thumb {
-              height: 24px;
-              width: 24px;
-              background-color: #fff;
-              background-size: cover;
-              border-radius: 50%;
-              border: none;
-              transition: 0.2s ease-in-out;
-              box-shadow: 1px 4px 16px -4px rgba(0, 0, 0, 0.12);
-            }
-
-            /* Hover, active & focus Thumb: Webkit */
-            input[type='range']::-webkit-slider-thumb:hover {
-              box-shadow: 0 0 0 10px rgba(76, 82, 247, 0.1);
-            }
-            input[type='range']:active::-webkit-slider-thumb {
-              box-shadow: 0 0 0 13px rgba(76, 82, 247, 0.2);
-            }
-            input[type='range']:focus::-webkit-slider-thumb {
-              box-shadow: 0 0 0 13px rgba(76, 82, 247, 0.2);
-            }
-
-            /* Hover, active & focus Thumb: Firefox */
-            input[type='range']::-moz-range-thumb:hover {
-              box-shadow: 0 0 0 10px rgba(76, 82, 247, 0.1);
-            }
-            input[type='range']:active::-moz-range-thumb {
-              box-shadow: 0 0 0 13px rgba(76, 82, 247, 0.2);
-            }
-            input[type='range']:focus::-moz-range-thumb {
-              box-shadow: 0 0 0 13px rgba(76, 82, 247, 0.2);
-            }
-
-            .value {
-              font-size: 26px;
-              width: 50px;
-              text-align: center;
-            }
-          </style>
-        </div>
-        <div class="calc_component">
-          <div class="calc_left">
-            <div class="calc_product_list">
-              <div
-                data-max="20000"
-                data-pricing-card="pb"
-                data-min="1000"
-                class="calc_product_item"
-              >
-                <div data-pricing-toggle="" class="calc_product_item-inner">
-                  <div class="calc_product_tag">Nooit meer een document missen</div>
-                  <div class="calc_product_item-layout">
-                    <div class="calc_product_item-left">
-                      <div class="calc_product_radio-btn">
-                        <div class="calc_product_radio-check w-embed">
-                          <svg
-                            width=" 100%"
-                            height=" 100%"
-                            viewBox="0 0 10 7"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M9.26552 0.640521L3.26552 6.64052C3.23069 6.67539 3.18934 6.70305 3.14381 6.72192C3.09829 6.74079 3.04949 6.7505 3.00021 6.7505C2.95093 6.7505 2.90213 6.74079 2.85661 6.72192C2.81108 6.70305 2.76972 6.67539 2.7349 6.64052L0.109896 4.01552C0.0395308 3.94516 0 3.84972 0 3.75021C0 3.6507 0.0395308 3.55526 0.109896 3.4849C0.180261 3.41453 0.275697 3.375 0.375208 3.375C0.47472 3.375 0.570156 3.41453 0.640521 3.4849L3.00021 5.84505L8.7349 0.109896C8.80526 0.0395306 8.9007 -7.41418e-10 9.00021 0C9.09972 7.41419e-10 9.19516 0.0395306 9.26552 0.109896C9.33589 0.180261 9.37542 0.275697 9.37542 0.375208C9.37542 0.47472 9.33589 0.570156 9.26552 0.640521Z"
-                              fill="currentColor"
-                            ></path>
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="calc_product_item-right">
-                      <div class="calc_product_top-wrap">
-                        <div class="calc_product_top">
-                          <div class="calc_product_title-wrap">
-                            <div class="calc_product_title h5">Personenbelasting</div>
-                            <div class="calc_product_title-p">PB/IPP &amp; BNI/INR</div>
-                          </div>
-                          <div class="calc_product_price-wrap">
-                            <span class="calc_product_price h5"
-                              ><span>€20</span
-                              ><span class="calc_product_price-asterix">*</span></span
-                            >
-                            <div class="calc_product_title-p">/ jaar per aangifte</div>
-                          </div>
-                        </div>
-                        <div class="calc_product_line"></div>
-                        <div class="calc_product_checklist check_list">
-                          <div class="check_item">
-                            <div class="check_icon is-calculator w-embed">
-                              <svg
-                                width="100%"
-                                height="100%"
-                                viewBox="0 0 15 15"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
-                                  fill="currentColor"
-                                ></path>
-                                <path
-                                  d="M4.375 8.125L6.25 10L10.625 5.625"
-                                  stroke="#565AF5"
-                                  stroke-width="1.5"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
-                              </svg>
-                            </div>
-                            <p class="check_text">Vooraf ingevulde validatielijst</p>
-                          </div>
-                          <div class="check_item">
-                            <div class="check_icon is-calculator w-embed">
-                              <svg
-                                width="100%"
-                                height="100%"
-                                viewBox="0 0 15 15"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
-                                  fill="currentColor"
-                                ></path>
-                                <path
-                                  d="M4.375 8.125L6.25 10L10.625 5.625"
-                                  stroke="#565AF5"
-                                  stroke-width="1.5"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
-                              </svg>
-                            </div>
-                            <p class="check_text">Dossieroverzicht</p>
-                          </div>
-                          <div class="check_item">
-                            <div class="check_icon is-calculator w-embed">
-                              <svg
-                                width="100%"
-                                height="100%"
-                                viewBox="0 0 15 15"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
-                                  fill="currentColor"
-                                ></path>
-                                <path
-                                  d="M4.375 8.125L6.25 10L10.625 5.625"
-                                  stroke="#565AF5"
-                                  stroke-width="1.5"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
-                              </svg>
-                            </div>
-                            <p class="check_text">Koppeling MyMinfin</p>
-                          </div>
-                          <div class="check_item">
-                            <div class="check_icon is-calculator w-embed">
-                              <svg
-                                width="100%"
-                                height="100%"
-                                viewBox="0 0 15 15"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
-                                  fill="currentColor"
-                                ></path>
-                                <path
-                                  d="M4.375 8.125L6.25 10L10.625 5.625"
-                                  stroke="#565AF5"
-                                  stroke-width="1.5"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
-                              </svg>
-                            </div>
-                            <p class="check_text">On-the-fly berekening</p>
-                          </div>
-                          <div class="check_item">
-                            <div class="check_icon is-calculator w-embed">
-                              <svg
-                                width="100%"
-                                height="100%"
-                                viewBox="0 0 15 15"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
-                                  fill="currentColor"
-                                ></path>
-                                <path
-                                  d="M4.375 8.125L6.25 10L10.625 5.625"
-                                  stroke="#565AF5"
-                                  stroke-width="1.5"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
-                              </svg>
-                            </div>
-                            <p class="check_text">Automatische indiening Tax-on-web</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+<div class="calc_component">
+  <div class="calc_left">
+    <div class="calc_product_list">
+      <div
+        data-default="250"
+        data-pricing-card="pb"
+        data-min="50"
+        data-max="10000"
+        class="calc_product_item"
+      >
+        <div data-pricing-toggle="" class="calc_product_item-inner">
+          <div class="calc_product_tag">Nooit meer een document missen</div>
+          <div class="calc_product_item-layout">
+            <div class="calc_product_item-left">
+              <div class="calc_product_radio-btn">
+                <div class="calc_product_radio-check w-embed">
+                  <svg
+                    width=" 100%"
+                    height=" 100%"
+                    viewBox="0 0 10 7"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.26552 0.640521L3.26552 6.64052C3.23069 6.67539 3.18934 6.70305 3.14381 6.72192C3.09829 6.74079 3.04949 6.7505 3.00021 6.7505C2.95093 6.7505 2.90213 6.74079 2.85661 6.72192C2.81108 6.70305 2.76972 6.67539 2.7349 6.64052L0.109896 4.01552C0.0395308 3.94516 0 3.84972 0 3.75021C0 3.6507 0.0395308 3.55526 0.109896 3.4849C0.180261 3.41453 0.275697 3.375 0.375208 3.375C0.47472 3.375 0.570156 3.41453 0.640521 3.4849L3.00021 5.84505L8.7349 0.109896C8.80526 0.0395306 8.9007 -7.41418e-10 9.00021 0C9.09972 7.41419e-10 9.19516 0.0395306 9.26552 0.109896C9.33589 0.180261 9.37542 0.275697 9.37542 0.375208C9.37542 0.47472 9.33589 0.570156 9.26552 0.640521Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="calc_product_item-right">
+              <div class="calc_product_top-wrap">
+                <div class="calc_product_top">
+                  <div class="calc_product_title-wrap">
+                    <div class="calc_product_title h5">Personenbelasting</div>
+                    <div class="calc_product_title-p">PB/IPP &amp; BNI/INR</div>
+                  </div>
+                  <div class="calc_product_price-wrap">
+                    <span class="calc_product_price h5"
+                      ><span>€20</span><span class="calc_product_price-asterix">*</span></span
+                    >
+                    <div class="calc_product_title-p">/ jaar per aangifte</div>
                   </div>
                 </div>
-                <div class="calc_product_bottom-wrap">
-                  <div class="calc_product_bottom-inner">
-                    <div data-pricing-details="" class="calc_product_item-inner is-bot">
-                      <div class="calc_product_item-layout">
-                        <div class="calc_product_item-left"></div>
-                        <div class="calc_product_bottom">
-                          <div class="calc_product_line with-margin"></div>
-                          <div class="calc_product_bottom_h">Bereken jouw jaarkosten</div>
-                          <div class="range-item_wrap">
-                            <div class="range-item">
-                              <div class="range-item_inner">
-                                <div class="range-label_container">
-                                  <span class="range-label_wrap"
-                                    ><label for="member-spending" class="range-label"
-                                      >Aantal aangiften / jaar</label
-                                    ></span
-                                  ><input
-                                    type="number"
-                                    data-pricing-input=""
-                                    class="range-value"
-                                    value="300"
-                                  />
-                                </div>
-                                <div class="range-w">
-                                  <input
-                                    type="range"
-                                    min="1000"
-                                    max="20000"
-                                    step="50"
-                                    data-pricing-slider=""
-                                    class="range-input"
-                                    value="4000"
-                                  />
-                                </div>
-                                <div class="range-label_container">
-                                  <div data-pricing-range-min="">1.000</div>
-                                  <div data-pricing-range-max="">20.000</div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="range-item_total">
-                              <div class="range-item_total-top">
-                                <span data-pricing-card-total="" class="range-item_total-price"
-                                  >5000</span
-                                ><span>&nbsp;/ jaar</span>
-                              </div>
-                              <div class="range-item_total-bot">
-                                <span data-pricing-card-qty="">3000</span><span>&nbsp;x </span
-                                ><span>€</span><span data-pricing-card-unit="">30</span
-                                ><span>&nbsp;per aangifte</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                <div class="calc_product_line"></div>
+                <div class="calc_product_checklist check_list">
+                  <div class="check_item">
+                    <div class="check_icon is-calculator w-embed">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
+                          fill="currentColor"
+                        ></path>
+                        <path
+                          d="M4.375 8.125L6.25 10L10.625 5.625"
+                          stroke="#565AF5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
                     </div>
+                    <p class="check_text">Vooraf ingevulde validatielijst</p>
+                  </div>
+                  <div class="check_item">
+                    <div class="check_icon is-calculator w-embed">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
+                          fill="currentColor"
+                        ></path>
+                        <path
+                          d="M4.375 8.125L6.25 10L10.625 5.625"
+                          stroke="#565AF5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="check_text">Dossieroverzicht</p>
+                  </div>
+                  <div class="check_item">
+                    <div class="check_icon is-calculator w-embed">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
+                          fill="currentColor"
+                        ></path>
+                        <path
+                          d="M4.375 8.125L6.25 10L10.625 5.625"
+                          stroke="#565AF5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="check_text">Koppeling MyMinfin</p>
+                  </div>
+                  <div class="check_item">
+                    <div class="check_icon is-calculator w-embed">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
+                          fill="currentColor"
+                        ></path>
+                        <path
+                          d="M4.375 8.125L6.25 10L10.625 5.625"
+                          stroke="#565AF5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="check_text">On-the-fly berekening</p>
+                  </div>
+                  <div class="check_item">
+                    <div class="check_icon is-calculator w-embed">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
+                          fill="currentColor"
+                        ></path>
+                        <path
+                          d="M4.375 8.125L6.25 10L10.625 5.625"
+                          stroke="#565AF5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="check_text">Automatische indiening Tax-on-web</p>
                   </div>
                 </div>
               </div>
-              <div
-                data-max="20000"
-                data-pricing-card="blt"
-                data-min="1000"
-                class="calc_product_item"
-              >
-                <div data-pricing-toggle="" class="calc_product_item-inner">
-                  <div class="calc_product_tag">Optimaal loonbeheer</div>
-                  <div class="calc_product_item-layout">
-                    <div class="calc_product_item-left">
-                      <div class="calc_product_radio-btn">
-                        <div class="calc_product_radio-check w-embed">
-                          <svg
-                            width=" 100%"
-                            height=" 100%"
-                            viewBox="0 0 10 7"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M9.26552 0.640521L3.26552 6.64052C3.23069 6.67539 3.18934 6.70305 3.14381 6.72192C3.09829 6.74079 3.04949 6.7505 3.00021 6.7505C2.95093 6.7505 2.90213 6.74079 2.85661 6.72192C2.81108 6.70305 2.76972 6.67539 2.7349 6.64052L0.109896 4.01552C0.0395308 3.94516 0 3.84972 0 3.75021C0 3.6507 0.0395308 3.55526 0.109896 3.4849C0.180261 3.41453 0.275697 3.375 0.375208 3.375C0.47472 3.375 0.570156 3.41453 0.640521 3.4849L3.00021 5.84505L8.7349 0.109896C8.80526 0.0395306 8.9007 -7.41418e-10 9.00021 0C9.09972 7.41419e-10 9.19516 0.0395306 9.26552 0.109896C9.33589 0.180261 9.37542 0.275697 9.37542 0.375208C9.37542 0.47472 9.33589 0.570156 9.26552 0.640521Z"
-                              fill="currentColor"
-                            ></path>
-                          </svg>
+            </div>
+          </div>
+        </div>
+        <div class="calc_product_bottom-wrap">
+          <div class="calc_product_bottom-inner">
+            <div data-pricing-details="" class="calc_product_item-inner is-bot">
+              <div class="calc_product_item-layout">
+                <div class="calc_product_item-left"></div>
+                <div class="calc_product_bottom">
+                  <div class="calc_product_line with-margin"></div>
+                  <div class="calc_product_bottom_h">Bereken jouw jaarkosten</div>
+                  <div class="range-item_wrap">
+                    <div class="range-item">
+                      <div class="range-item_inner">
+                        <div class="range-label_container">
+                          <span class="range-label_wrap"
+                            ><label for="member-spending" class="range-label"
+                              >Aantal aangiften / jaar</label
+                            ></span
+                          ><input
+                            type="number"
+                            data-pricing-input=""
+                            class="range-value"
+                            value="300"
+                          />
+                        </div>
+                        <div class="range-w">
+                          <input
+                            type="range"
+                            min="50"
+                            max="10000"
+                            step="50"
+                            data-pricing-slider=""
+                            class="range-input"
+                            value="4000"
+                            style="
+                              background: linear-gradient(
+                                to right,
+                                rgb(86, 90, 245) 2.01005%,
+                                rgb(204, 204, 204) 2.01005%
+                              );
+                            "
+                          />
+                        </div>
+                        <div class="range-label_container">
+                          <div data-pricing-range-min="">50</div>
+                          <div data-pricing-range-max="">10.000</div>
                         </div>
                       </div>
                     </div>
-                    <div class="calc_product_item-right">
-                      <div class="calc_product_top-wrap">
-                        <div class="calc_product_top">
-                          <div class="calc_product_title-wrap">
-                            <div class="calc_product_title h5">Bedrijfsleidertool</div>
-                            <div class="calc_product_title-p">Lorem ipsum, tekst komt nog</div>
-                          </div>
-                          <div class="calc_product_price-wrap">
-                            <span class="calc_product_price h5"
-                              ><span>€30</span
-                              ><span class="calc_product_price-asterix">*</span></span
-                            >
-                            <div class="calc_product_title-p">/ jaar per dossier</div>
-                          </div>
-                        </div>
-                        <div class="calc_product_line"></div>
-                        <div class="calc_product_checklist check_list">
-                          <div class="check_item">
-                            <div class="check_icon is-calculator w-embed">
-                              <svg
-                                width="100%"
-                                height="100%"
-                                viewBox="0 0 15 15"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
-                                  fill="currentColor"
-                                ></path>
-                                <path
-                                  d="M4.375 8.125L6.25 10L10.625 5.625"
-                                  stroke="#565AF5"
-                                  stroke-width="1.5"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
-                              </svg>
-                            </div>
-                            <p class="check_text">USP</p>
-                          </div>
-                          <div class="check_item">
-                            <div class="check_icon is-calculator w-embed">
-                              <svg
-                                width="100%"
-                                height="100%"
-                                viewBox="0 0 15 15"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
-                                  fill="currentColor"
-                                ></path>
-                                <path
-                                  d="M4.375 8.125L6.25 10L10.625 5.625"
-                                  stroke="#565AF5"
-                                  stroke-width="1.5"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
-                              </svg>
-                            </div>
-                            <p class="check_text">USP</p>
-                          </div>
-                          <div class="check_item">
-                            <div class="check_icon is-calculator w-embed">
-                              <svg
-                                width="100%"
-                                height="100%"
-                                viewBox="0 0 15 15"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
-                                  fill="currentColor"
-                                ></path>
-                                <path
-                                  d="M4.375 8.125L6.25 10L10.625 5.625"
-                                  stroke="#565AF5"
-                                  stroke-width="1.5"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
-                              </svg>
-                            </div>
-                            <p class="check_text">USP</p>
-                          </div>
-                          <div class="check_item">
-                            <div class="check_icon is-calculator w-embed">
-                              <svg
-                                width="100%"
-                                height="100%"
-                                viewBox="0 0 15 15"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
-                                  fill="currentColor"
-                                ></path>
-                                <path
-                                  d="M4.375 8.125L6.25 10L10.625 5.625"
-                                  stroke="#565AF5"
-                                  stroke-width="1.5"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
-                              </svg>
-                            </div>
-                            <p class="check_text">USP</p>
-                          </div>
-                        </div>
+                    <div class="range-item_total">
+                      <div class="range-item_total-top">
+                        <span data-pricing-card-total="" class="range-item_total-price">5000</span
+                        ><span>&nbsp;/ jaar</span>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="calc_product_bottom-wrap">
-                  <div class="calc_product_bottom-inner">
-                    <div data-pricing-details="" class="calc_product_item-inner is-bot">
-                      <div class="calc_product_item-layout">
-                        <div class="calc_product_item-left"></div>
-                        <div class="calc_product_bottom">
-                          <div class="calc_product_line with-margin"></div>
-                          <div class="calc_product_bottom_h">Bereken jouw jaarkosten</div>
-                          <div class="range-item_wrap">
-                            <div class="range-item">
-                              <div class="range-item_inner">
-                                <div class="range-label_container">
-                                  <span class="range-label_wrap"
-                                    ><label for="member-spending" class="range-label"
-                                      >Aantal aangiften / jaar</label
-                                    ></span
-                                  ><input
-                                    type="number"
-                                    data-pricing-input=""
-                                    class="range-value"
-                                    value="300"
-                                  />
-                                </div>
-                                <div class="range-w">
-                                  <input
-                                    type="range"
-                                    min="1000"
-                                    max="20000"
-                                    step="50"
-                                    data-pricing-slider=""
-                                    class="range-input"
-                                    value="4000"
-                                  />
-                                </div>
-                                <div class="range-label_container">
-                                  <div data-pricing-range-min="">1.000</div>
-                                  <div data-pricing-range-max="">20.000</div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="range-item_total">
-                              <div class="range-item_total-top">
-                                <span data-pricing-card-total="" class="range-item_total-price"
-                                  >5000</span
-                                ><span>&nbsp;/ jaar</span>
-                              </div>
-                              <div class="range-item_total-bot">
-                                <span data-pricing-card-qty="">3000</span><span>&nbsp;x </span
-                                ><span>€</span><span data-pricing-card-unit="">30</span
-                                ><span>&nbsp;per dossier</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                data-max="20000"
-                data-pricing-card="optimize"
-                data-min="1000"
-                class="calc_product_item"
-              >
-                <div data-pricing-toggle="" class="calc_product_item-inner">
-                  <div class="calc_product_tag">Weet wat elke keuze je kost</div>
-                  <div class="calc_product_item-layout">
-                    <div class="calc_product_item-left">
-                      <div class="calc_product_radio-btn">
-                        <div class="calc_product_radio-check w-embed">
-                          <svg
-                            width=" 100%"
-                            height=" 100%"
-                            viewBox="0 0 10 7"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M9.26552 0.640521L3.26552 6.64052C3.23069 6.67539 3.18934 6.70305 3.14381 6.72192C3.09829 6.74079 3.04949 6.7505 3.00021 6.7505C2.95093 6.7505 2.90213 6.74079 2.85661 6.72192C2.81108 6.70305 2.76972 6.67539 2.7349 6.64052L0.109896 4.01552C0.0395308 3.94516 0 3.84972 0 3.75021C0 3.6507 0.0395308 3.55526 0.109896 3.4849C0.180261 3.41453 0.275697 3.375 0.375208 3.375C0.47472 3.375 0.570156 3.41453 0.640521 3.4849L3.00021 5.84505L8.7349 0.109896C8.80526 0.0395306 8.9007 -7.41418e-10 9.00021 0C9.09972 7.41419e-10 9.19516 0.0395306 9.26552 0.109896C9.33589 0.180261 9.37542 0.275697 9.37542 0.375208C9.37542 0.47472 9.33589 0.570156 9.26552 0.640521Z"
-                              fill="currentColor"
-                            ></path>
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="calc_product_item-right">
-                      <div class="calc_product_top-wrap">
-                        <div class="calc_product_top">
-                          <div class="calc_product_title-wrap">
-                            <div class="calc_product_title h5">Optimize</div>
-                            <div class="calc_product_title-p">Lorem ipsum, tekst komt nog</div>
-                          </div>
-                          <div class="calc_product_price-wrap">
-                            <span class="calc_product_price h5"
-                              ><span>€5000</span
-                              ><span class="calc_product_price-asterix">*</span></span
-                            >
-                            <div class="calc_product_title-p">/ jaar</div>
-                          </div>
-                        </div>
-                        <div class="calc_product_line"></div>
-                        <div class="calc_product_checklist check_list">
-                          <div class="check_item">
-                            <div class="check_icon is-calculator w-embed">
-                              <svg
-                                width="100%"
-                                height="100%"
-                                viewBox="0 0 15 15"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
-                                  fill="currentColor"
-                                ></path>
-                                <path
-                                  d="M4.375 8.125L6.25 10L10.625 5.625"
-                                  stroke="#565AF5"
-                                  stroke-width="1.5"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
-                              </svg>
-                            </div>
-                            <p class="check_text">USP</p>
-                          </div>
-                          <div class="check_item">
-                            <div class="check_icon is-calculator w-embed">
-                              <svg
-                                width="100%"
-                                height="100%"
-                                viewBox="0 0 15 15"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
-                                  fill="currentColor"
-                                ></path>
-                                <path
-                                  d="M4.375 8.125L6.25 10L10.625 5.625"
-                                  stroke="#565AF5"
-                                  stroke-width="1.5"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
-                              </svg>
-                            </div>
-                            <p class="check_text">USP</p>
-                          </div>
-                          <div class="check_item">
-                            <div class="check_icon is-calculator w-embed">
-                              <svg
-                                width="100%"
-                                height="100%"
-                                viewBox="0 0 15 15"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
-                                  fill="currentColor"
-                                ></path>
-                                <path
-                                  d="M4.375 8.125L6.25 10L10.625 5.625"
-                                  stroke="#565AF5"
-                                  stroke-width="1.5"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
-                              </svg>
-                            </div>
-                            <p class="check_text">USP</p>
-                          </div>
-                          <div class="check_item">
-                            <div class="check_icon is-calculator w-embed">
-                              <svg
-                                width="100%"
-                                height="100%"
-                                viewBox="0 0 15 15"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
-                                  fill="currentColor"
-                                ></path>
-                                <path
-                                  d="M4.375 8.125L6.25 10L10.625 5.625"
-                                  stroke="#565AF5"
-                                  stroke-width="1.5"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
-                              </svg>
-                            </div>
-                            <p class="check_text">USP</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="calc_product_bottom-wrap">
-                  <div class="calc_product_bottom-inner">
-                    <div data-pricing-details="" class="calc_product_item-inner is-bot">
-                      <div class="calc_product_item-layout">
-                        <div class="calc_product_item-left"></div>
-                        <div class="calc_product_bottom">
-                          <div class="calc_product_line with-margin"></div>
-                          <div class="calc_product_bottom_h">Selecteer jouw teamgrootte</div>
-                          <div class="form_radio-list">
-                            <div
-                              data-combo="3500"
-                              data-pricing-tier="A"
-                              data-standard="5000"
-                              class="form_radio"
-                            >
-                              <div class="form_radio-icon">
-                                <div class="form_radio-icon-active"></div>
-                              </div>
-                              <div>1-5 medewerkes</div>
-                            </div>
-                            <div
-                              data-combo="5000"
-                              data-pricing-tier="B"
-                              data-standard="7500"
-                              class="form_radio"
-                            >
-                              <div class="form_radio-icon">
-                                <div class="form_radio-icon-active"></div>
-                              </div>
-                              <div>5-25 medewerkes</div>
-                            </div>
-                            <div
-                              data-combo="10000"
-                              data-pricing-tier="C"
-                              data-standard="15000"
-                              class="form_radio"
-                            >
-                              <div class="form_radio-icon">
-                                <div class="form_radio-icon-active"></div>
-                              </div>
-                              <div>26-100 medewerkers</div>
-                            </div>
-                            <div
-                              data-combo="3500"
-                              data-pricing-tier="C"
-                              data-standard="5000"
-                              class="form_radio"
-                            >
-                              <div class="form_radio-icon">
-                                <div class="form_radio-icon-active"></div>
-                              </div>
-                              <div>&gt;100 medewerkers</div>
-                            </div>
-                          </div>
-                        </div>
+                      <div class="range-item_total-bot">
+                        <span data-pricing-card-qty="">3000</span><span>&nbsp;x </span><span>€</span
+                        ><span data-pricing-card-unit="">30</span><span>&nbsp;per aangifte</span>
                       </div>
                     </div>
                   </div>
@@ -763,15 +232,658 @@
               </div>
             </div>
           </div>
-          <div class="calc_right">
-            <div data-pricing="summary" class="calc-overview_component">
-              <div class="calc-overview_title h5">Jouw pakket</div>
-              <div class="calc-overview_list">
-                <div data-summary-item="pb" class="calc-overview_item is-hidden">
+        </div>
+      </div>
+      <div
+        data-default="300"
+        data-pricing-card="blt"
+        data-min="50"
+        data-max="10000"
+        class="calc_product_item"
+      >
+        <div data-pricing-toggle="" class="calc_product_item-inner">
+          <div class="calc_product_tag">Optimaal loonbeheer</div>
+          <div class="calc_product_item-layout">
+            <div class="calc_product_item-left">
+              <div class="calc_product_radio-btn">
+                <div class="calc_product_radio-check w-embed">
+                  <svg
+                    width=" 100%"
+                    height=" 100%"
+                    viewBox="0 0 10 7"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.26552 0.640521L3.26552 6.64052C3.23069 6.67539 3.18934 6.70305 3.14381 6.72192C3.09829 6.74079 3.04949 6.7505 3.00021 6.7505C2.95093 6.7505 2.90213 6.74079 2.85661 6.72192C2.81108 6.70305 2.76972 6.67539 2.7349 6.64052L0.109896 4.01552C0.0395308 3.94516 0 3.84972 0 3.75021C0 3.6507 0.0395308 3.55526 0.109896 3.4849C0.180261 3.41453 0.275697 3.375 0.375208 3.375C0.47472 3.375 0.570156 3.41453 0.640521 3.4849L3.00021 5.84505L8.7349 0.109896C8.80526 0.0395306 8.9007 -7.41418e-10 9.00021 0C9.09972 7.41419e-10 9.19516 0.0395306 9.26552 0.109896C9.33589 0.180261 9.37542 0.275697 9.37542 0.375208C9.37542 0.47472 9.33589 0.570156 9.26552 0.640521Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="calc_product_item-right">
+              <div class="calc_product_top-wrap">
+                <div class="calc_product_top">
+                  <div class="calc_product_title-wrap">
+                    <div class="calc_product_title h5">Bedrijfsleidertool</div>
+                    <div class="calc_product_title-p">
+                      Geautomatiseerd loonbeheer voor al je bedrijfsleiders.
+                    </div>
+                  </div>
+                  <div class="calc_product_price-wrap">
+                    <span class="calc_product_price h5"
+                      ><span>€30</span><span class="calc_product_price-asterix">*</span></span
+                    >
+                    <div class="calc_product_title-p">/ jaar per dossier</div>
+                  </div>
+                </div>
+                <div class="calc_product_line"></div>
+                <div class="calc_product_checklist check_list">
+                  <div class="check_item">
+                    <div class="check_icon is-calculator w-embed">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
+                          fill="currentColor"
+                        ></path>
+                        <path
+                          d="M4.375 8.125L6.25 10L10.625 5.625"
+                          stroke="#565AF5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="check_text">Centraal loonbeheer</p>
+                  </div>
+                  <div class="check_item">
+                    <div class="check_icon is-calculator w-embed">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
+                          fill="currentColor"
+                        ></path>
+                        <path
+                          d="M4.375 8.125L6.25 10L10.625 5.625"
+                          stroke="#565AF5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="check_text">Aangifte BV &amp; fiche 281.20</p>
+                  </div>
+                  <div class="check_item">
+                    <div class="check_icon is-calculator w-embed">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
+                          fill="currentColor"
+                        ></path>
+                        <path
+                          d="M4.375 8.125L6.25 10L10.625 5.625"
+                          stroke="#565AF5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="check_text">Optimalisatie PB &amp; sociale bijdragen</p>
+                  </div>
+                  <div class="check_item">
+                    <div class="check_icon is-calculator w-embed">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
+                          fill="currentColor"
+                        ></path>
+                        <path
+                          d="M4.375 8.125L6.25 10L10.625 5.625"
+                          stroke="#565AF5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="check_text">Automatische datacollectie</p>
+                  </div>
+                  <div class="check_item">
+                    <div class="check_icon is-calculator w-embed">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
+                          fill="currentColor"
+                        ></path>
+                        <path
+                          d="M4.375 8.125L6.25 10L10.625 5.625"
+                          stroke="#565AF5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="check_text">Koppeling MyMinfin</p>
+                  </div>
+                  <div class="check_item">
+                    <div class="check_icon is-calculator w-embed">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
+                          fill="currentColor"
+                        ></path>
+                        <path
+                          d="M4.375 8.125L6.25 10L10.625 5.625"
+                          stroke="#565AF5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="check_text">Indiening via Belcotax-on-Web</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="calc_product_bottom-wrap">
+          <div class="calc_product_bottom-inner">
+            <div data-pricing-details="" class="calc_product_item-inner is-bot">
+              <div class="calc_product_item-layout">
+                <div class="calc_product_item-left"></div>
+                <div class="calc_product_bottom">
+                  <div class="calc_product_line with-margin"></div>
+                  <div class="calc_product_bottom_h">Bereken jouw jaarkosten</div>
+                  <div class="range-item_wrap">
+                    <div class="range-item">
+                      <div class="range-item_inner">
+                        <div class="range-label_container">
+                          <span class="range-label_wrap"
+                            ><label for="member-spending" class="range-label"
+                              >Aantal aangiften / jaar</label
+                            ></span
+                          >
+                          <div class="range-value_wrap">
+                            <input
+                              type="number"
+                              data-pricing-input=""
+                              class="range-value"
+                              value="300"
+                            />
+                            <div class="range-value_btn-wrap">
+                              <button data-pricing-increment="" class="range-value_btn">
+                                <div>+</div></button
+                              ><button data-pricing-decrement="" class="range-value_btn">
+                                <div>-</div>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="range-w">
+                          <input
+                            type="range"
+                            min="50"
+                            max="10000"
+                            step="50"
+                            data-pricing-slider=""
+                            class="range-input"
+                            value="4000"
+                            style="
+                              background: linear-gradient(
+                                to right,
+                                rgb(86, 90, 245) 2.51256%,
+                                rgb(204, 204, 204) 2.51256%
+                              );
+                            "
+                          />
+                        </div>
+                        <div class="range-label_container">
+                          <div data-pricing-range-min="">50</div>
+                          <div data-pricing-range-max="">10.000</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="range-item_total">
+                      <div class="range-item_total-top">
+                        <span data-pricing-card-total="" class="range-item_total-price">5000</span
+                        ><span>&nbsp;/ jaar</span>
+                      </div>
+                      <div class="range-item_total-bot">
+                        <span data-pricing-card-qty="">3000</span><span>&nbsp;x </span><span>€</span
+                        ><span data-pricing-card-unit="">30</span><span>&nbsp;per dossier</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-max="20000" data-pricing-card="optimize" data-min="1000" class="calc_product_item">
+        <div data-pricing-toggle="" class="calc_product_item-inner">
+          <div class="calc_product_tag">Weet wat elke keuze je kost</div>
+          <div class="calc_product_item-layout">
+            <div class="calc_product_item-left">
+              <div class="calc_product_radio-btn">
+                <div class="calc_product_radio-check w-embed">
+                  <svg
+                    width=" 100%"
+                    height=" 100%"
+                    viewBox="0 0 10 7"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.26552 0.640521L3.26552 6.64052C3.23069 6.67539 3.18934 6.70305 3.14381 6.72192C3.09829 6.74079 3.04949 6.7505 3.00021 6.7505C2.95093 6.7505 2.90213 6.74079 2.85661 6.72192C2.81108 6.70305 2.76972 6.67539 2.7349 6.64052L0.109896 4.01552C0.0395308 3.94516 0 3.84972 0 3.75021C0 3.6507 0.0395308 3.55526 0.109896 3.4849C0.180261 3.41453 0.275697 3.375 0.375208 3.375C0.47472 3.375 0.570156 3.41453 0.640521 3.4849L3.00021 5.84505L8.7349 0.109896C8.80526 0.0395306 8.9007 -7.41418e-10 9.00021 0C9.09972 7.41419e-10 9.19516 0.0395306 9.26552 0.109896C9.33589 0.180261 9.37542 0.275697 9.37542 0.375208C9.37542 0.47472 9.33589 0.570156 9.26552 0.640521Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="calc_product_item-right">
+              <div class="calc_product_top-wrap">
+                <div class="calc_product_top">
+                  <div class="calc_product_title-wrap">
+                    <div class="calc_product_title h5">Optimize</div>
+                    <div class="calc_product_title-p">Simulaties voor maximaal netto-inkomen.</div>
+                  </div>
+                  <div class="calc_product_price-wrap">
+                    <span class="calc_product_price h5"
+                      ><span data-pricing-price-original="" class="calc_product_price-old is-hidden"
+                        >€5000</span
+                      ><span data-pricing-price="">€5.000</span
+                      ><span class="calc_product_price-asterix">*</span></span
+                    >
+                    <div class="calc_product_title-p">/ jaar</div>
+                  </div>
+                </div>
+                <div class="calc_product_line"></div>
+                <div class="calc_product_checklist check_list">
+                  <div class="check_item">
+                    <div class="check_icon is-calculator w-embed">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
+                          fill="currentColor"
+                        ></path>
+                        <path
+                          d="M4.375 8.125L6.25 10L10.625 5.625"
+                          stroke="#565AF5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="check_text">Simulaties WN, EMZ &amp; vennootschap</p>
+                  </div>
+                  <div class="check_item">
+                    <div class="check_icon is-calculator w-embed">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
+                          fill="currentColor"
+                        ></path>
+                        <path
+                          d="M4.375 8.125L6.25 10L10.625 5.625"
+                          stroke="#565AF5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="check_text">Netto-optimalisatie per scenario</p>
+                  </div>
+                  <div class="check_item">
+                    <div class="check_icon is-calculator w-embed">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
+                          fill="currentColor"
+                        ></path>
+                        <path
+                          d="M4.375 8.125L6.25 10L10.625 5.625"
+                          stroke="#565AF5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="check_text">Berekening auteursrechten</p>
+                  </div>
+                  <div class="check_item">
+                    <div class="check_icon is-calculator w-embed">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
+                          fill="currentColor"
+                        ></path>
+                        <path
+                          d="M4.375 8.125L6.25 10L10.625 5.625"
+                          stroke="#565AF5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="check_text">Netto TCO bedrijfswagens</p>
+                  </div>
+                  <div class="check_item">
+                    <div class="check_icon is-calculator w-embed">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
+                          fill="currentColor"
+                        ></path>
+                        <path
+                          d="M4.375 8.125L6.25 10L10.625 5.625"
+                          stroke="#565AF5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="check_text">Data-gedreven advies voor je klant</p>
+                  </div>
+                  <div class="check_item">
+                    <div class="check_icon is-calculator w-embed">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15Z"
+                          fill="currentColor"
+                        ></path>
+                        <path
+                          d="M4.375 8.125L6.25 10L10.625 5.625"
+                          stroke="#565AF5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="check_text">Pensioenplanning incl. 80%-regel</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="calc_product_bottom-wrap">
+          <div class="calc_product_bottom-inner">
+            <div data-pricing-details="" class="calc_product_item-inner is-bot">
+              <div class="calc_product_item-layout">
+                <div class="calc_product_item-left"></div>
+                <div class="calc_product_bottom">
+                  <div class="calc_product_line with-margin"></div>
+                  <div class="calc_product_bottom_h">Selecteer jouw teamgrootte</div>
+                  <div class="form_radio-list">
+                    <div
+                      data-combo="3500"
+                      data-pricing-tier="A"
+                      data-standard="5000"
+                      class="form_radio is-active"
+                    >
+                      <div class="form_radio-icon"><div class="form_radio-icon-active"></div></div>
+                      <div>1-5 medewerkers</div>
+                      <div class="hide"></div>
+                    </div>
+                    <div
+                      data-combo="5000"
+                      data-pricing-tier="B"
+                      data-standard="7500"
+                      class="form_radio"
+                    >
+                      <div class="form_radio-icon"><div class="form_radio-icon-active"></div></div>
+                      <div>5-25 medewerkers</div>
+                    </div>
+                    <div
+                      data-combo="10000"
+                      data-pricing-tier="C"
+                      data-standard="15000"
+                      class="form_radio"
+                    >
+                      <div class="form_radio-icon"><div class="form_radio-icon-active"></div></div>
+                      <div>26-100 medewerkers</div>
+                    </div>
+                    <div data-combo="" data-pricing-tier="D" data-standard="" class="form_radio">
+                      <div class="form_radio-icon"><div class="form_radio-icon-active"></div></div>
+                      <div>&gt;100 medewerkers</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="calc_addon-wrap">
+        <div class="calc_addon-top">
+          <div class="calc_addon-icon w-embed">
+            <svg
+              width="100%"
+              height="100%"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="12" cy="12" r="12" fill="#A0D78B"></circle>
+              <path
+                d="M18 12.2383C18 12.3709 17.9473 12.4981 17.8536 12.5918C17.7598 12.6856 17.6326 12.7383 17.5 12.7383H12.5V17.7383C12.5 17.8709 12.4473 17.9981 12.3536 18.0918C12.2598 18.1856 12.1326 18.2383 12 18.2383C11.8674 18.2383 11.7402 18.1856 11.6464 18.0918C11.5527 17.9981 11.5 17.8709 11.5 17.7383V12.7383H6.5C6.36739 12.7383 6.24021 12.6856 6.14645 12.5918C6.05268 12.4981 6 12.3709 6 12.2383C6 12.1057 6.05268 11.9785 6.14645 11.8847C6.24021 11.791 6.36739 11.7383 6.5 11.7383H11.5V6.73828C11.5 6.60567 11.5527 6.4785 11.6464 6.38473C11.7402 6.29096 11.8674 6.23828 12 6.23828C12.1326 6.23828 12.2598 6.29096 12.3536 6.38473C12.4473 6.4785 12.5 6.60567 12.5 6.73828V11.7383H17.5C17.6326 11.7383 17.7598 11.791 17.8536 11.8847C17.9473 11.9785 18 12.1057 18 12.2383Z"
+                fill="#1E5C06"
+                stroke="#1E5C06"
+                stroke-width="0.5"
+              ></path>
+            </svg>
+          </div>
+          <div>Add ons</div>
+        </div>
+        <div
+          data-max="20000"
+          data-pricing-card="myminfin"
+          class="calc_product_item is--addon is-disabled"
+        >
+          <div data-pricing-toggle="" class="calc_product_item-inner">
+            <div class="addon_tag-list">
+              <div class="addon_tag is-combo">
+                <div class="addon_tag_icon w-embed">
+                  <svg
+                    width=" 100%"
+                    height=" 100%"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 1.5C6.71442 1.5 5.45772 1.88122 4.3888 2.59545C3.31988 3.30968 2.48676 4.32484 1.99479 5.51256C1.50282 6.70028 1.37409 8.00721 1.6249 9.26809C1.8757 10.529 2.49477 11.6872 3.40381 12.5962C4.31285 13.5052 5.47104 14.1243 6.73192 14.3751C7.99279 14.6259 9.29973 14.4972 10.4874 14.0052C11.6752 13.5132 12.6903 12.6801 13.4046 11.6112C14.1188 10.5423 14.5 9.28558 14.5 8C14.4982 6.27665 13.8128 4.62441 12.5942 3.40582C11.3756 2.18722 9.72335 1.50182 8 1.5ZM8 13.5C6.91221 13.5 5.84884 13.1774 4.94437 12.5731C4.0399 11.9687 3.33495 11.1098 2.91867 10.1048C2.50238 9.09977 2.39347 7.9939 2.60568 6.927C2.8179 5.86011 3.34173 4.8801 4.11092 4.11091C4.8801 3.34172 5.86011 2.8179 6.92701 2.60568C7.9939 2.39346 9.09977 2.50238 10.1048 2.91866C11.1098 3.33494 11.9687 4.03989 12.5731 4.94436C13.1774 5.84883 13.5 6.9122 13.5 8C13.4983 9.45818 12.9184 10.8562 11.8873 11.8873C10.8562 12.9184 9.45819 13.4983 8 13.5ZM9 11C9 11.1326 8.94732 11.2598 8.85356 11.3536C8.75979 11.4473 8.63261 11.5 8.5 11.5C8.23479 11.5 7.98043 11.3946 7.7929 11.2071C7.60536 11.0196 7.5 10.7652 7.5 10.5V8C7.36739 8 7.24022 7.94732 7.14645 7.85355C7.05268 7.75979 7 7.63261 7 7.5C7 7.36739 7.05268 7.24021 7.14645 7.14645C7.24022 7.05268 7.36739 7 7.5 7C7.76522 7 8.01957 7.10536 8.20711 7.29289C8.39465 7.48043 8.5 7.73478 8.5 8V10.5C8.63261 10.5 8.75979 10.5527 8.85356 10.6464C8.94732 10.7402 9 10.8674 9 11ZM7 5.25C7 5.10166 7.04399 4.95666 7.1264 4.83332C7.20881 4.70999 7.32595 4.61386 7.46299 4.55709C7.60003 4.50032 7.75083 4.48547 7.89632 4.51441C8.04181 4.54335 8.17544 4.61478 8.28033 4.71967C8.38522 4.82456 8.45665 4.9582 8.48559 5.10368C8.51453 5.24917 8.49968 5.39997 8.44291 5.53701C8.38615 5.67406 8.29002 5.79119 8.16668 5.8736C8.04334 5.95601 7.89834 6 7.75 6C7.55109 6 7.36032 5.92098 7.21967 5.78033C7.07902 5.63968 7 5.44891 7 5.25Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+                </div>
+                <div>Enkel in combo met PB/BLT</div>
+              </div>
+              <div class="addon_tag">
+                <div class="addon_tag_icon w-embed">
+                  <svg
+                    width=" 100%"
+                    height=" 100%"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13.5 4.4999H11.3075C11.3319 4.47927 11.3569 4.45927 11.3806 4.4374C11.5704 4.26876 11.7234 4.06276 11.83 3.8323C11.9366 3.60184 11.9944 3.35187 12 3.09802C12.0082 2.82032 11.9596 2.54387 11.8571 2.28564C11.7546 2.02741 11.6004 1.79286 11.404 1.59637C11.2075 1.39989 10.973 1.24563 10.7148 1.14306C10.4566 1.04049 10.1802 0.991769 9.9025 0.999896C9.64855 1.00537 9.39845 1.0632 9.16788 1.16978C8.9373 1.27635 8.73121 1.42938 8.5625 1.61927C8.32905 1.88983 8.13927 2.19517 8 2.52427C7.86073 2.19517 7.67095 1.88983 7.4375 1.61927C7.26879 1.42938 7.0627 1.27635 6.83212 1.16978C6.60155 1.0632 6.35146 1.00537 6.0975 0.999896C5.81979 0.991769 5.54336 1.04049 5.28516 1.14306C5.02696 1.24563 4.79245 1.39989 4.59603 1.59637C4.39961 1.79286 4.24542 2.02741 4.14292 2.28564C4.04043 2.54387 3.99179 2.82032 4 3.09802C4.00556 3.35187 4.06343 3.60184 4.17 3.8323C4.27658 4.06276 4.42956 4.26876 4.61938 4.4374C4.64313 4.45802 4.66813 4.47802 4.6925 4.4999H2.5C2.23478 4.4999 1.98043 4.60525 1.79289 4.79279C1.60536 4.98033 1.5 5.23468 1.5 5.4999V7.4999C1.5 7.76511 1.60536 8.01947 1.79289 8.207C1.98043 8.39454 2.23478 8.4999 2.5 8.4999V12.4999C2.5 12.7651 2.60536 13.0195 2.79289 13.207C2.98043 13.3945 3.23478 13.4999 3.5 13.4999H12.5C12.7652 13.4999 13.0196 13.3945 13.2071 13.207C13.3946 13.0195 13.5 12.7651 13.5 12.4999V8.4999C13.7652 8.4999 14.0196 8.39454 14.2071 8.207C14.3946 8.01947 14.5 7.76511 14.5 7.4999V5.4999C14.5 5.23468 14.3946 4.98033 14.2071 4.79279C14.0196 4.60525 13.7652 4.4999 13.5 4.4999ZM9.3125 2.28177C9.39167 2.19435 9.48805 2.12423 9.59561 2.07583C9.70316 2.02743 9.81956 2.00179 9.9375 2.00052H9.96813C10.1064 2.00139 10.243 2.02983 10.3701 2.08419C10.4972 2.13855 10.6122 2.21773 10.7083 2.31709C10.8044 2.41645 10.8797 2.534 10.9298 2.66284C10.9799 2.79167 11.0037 2.92921 11 3.0674C10.9987 3.18533 10.9731 3.30173 10.9247 3.40929C10.8763 3.51684 10.8062 3.61323 10.7188 3.6924C10.1256 4.2174 9.14125 4.4024 8.53125 4.4674C8.60625 3.80552 8.8125 2.84365 9.3125 2.28177ZM5.30688 2.30427C5.50059 2.11058 5.76294 2.00119 6.03687 1.9999H6.0675C6.18544 2.00117 6.30184 2.02681 6.40939 2.07521C6.51695 2.12361 6.61333 2.19372 6.6925 2.28115C7.21688 2.87365 7.40188 3.85615 7.46688 4.46365C6.85938 4.40115 5.87687 4.21365 5.28438 3.68927C5.19695 3.6101 5.12684 3.51372 5.07844 3.40616C5.03004 3.29861 5.0044 3.18221 5.00313 3.06427C4.99925 2.92379 5.02395 2.78399 5.07574 2.65335C5.12752 2.52271 5.20531 2.40394 5.30438 2.30427H5.30688ZM2.5 5.4999H7.5V7.4999H2.5V5.4999ZM3.5 8.4999H7.5V12.4999H3.5V8.4999ZM12.5 12.4999H8.5V8.4999H12.5V12.4999ZM13.5 7.4999H8.5V5.4999H13.5V7.4999Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+                </div>
+                <div>Eerste 1.000 dossiers gratis</div>
+              </div>
+            </div>
+            <div class="calc_product_item-layout">
+              <div class="calc_product_item-left">
+                <div class="calc_product_radio-btn">
+                  <div class="calc_product_radio-check w-embed">
+                    <svg
+                      width=" 100%"
+                      height=" 100%"
+                      viewBox="0 0 10 7"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.26552 0.640521L3.26552 6.64052C3.23069 6.67539 3.18934 6.70305 3.14381 6.72192C3.09829 6.74079 3.04949 6.7505 3.00021 6.7505C2.95093 6.7505 2.90213 6.74079 2.85661 6.72192C2.81108 6.70305 2.76972 6.67539 2.7349 6.64052L0.109896 4.01552C0.0395308 3.94516 0 3.84972 0 3.75021C0 3.6507 0.0395308 3.55526 0.109896 3.4849C0.180261 3.41453 0.275697 3.375 0.375208 3.375C0.47472 3.375 0.570156 3.41453 0.640521 3.4849L3.00021 5.84505L8.7349 0.109896C8.80526 0.0395306 8.9007 -7.41418e-10 9.00021 0C9.09972 7.41419e-10 9.19516 0.0395306 9.26552 0.109896C9.33589 0.180261 9.37542 0.275697 9.37542 0.375208C9.37542 0.47472 9.33589 0.570156 9.26552 0.640521Z"
+                        fill="currentColor"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="calc_product_item-right">
+                <div class="calc_product_top-wrap">
+                  <div class="calc_product_top">
+                    <div class="calc_product_title-wrap">
+                      <div class="calc_product_title h5">MyMinFin Smart Assistant</div>
+                      <div class="calc_product_title-p">
+                        Alle MyMinfin-documenten automatisch verzameld en altijd up-to-date.
+                      </div>
+                    </div>
+                    <div class="range-value_wrap">
+                      <input type="number" data-pricing-input="" class="range-value" value="300" />
+                      <div class="range-value_btn-wrap">
+                        <button data-pricing-increment="" class="range-value_btn">
+                          <div>+</div></button
+                        ><button data-pricing-decrement="" class="range-value_btn">
+                          <div>-</div>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="calc_right">
+    <div data-pricing="summary" class="calc-overview_component">
+      <div data-summary-enterprise="" class="calc-overview_enterprise hide">
+        <div>
+          <div class="margin-bottom margin-xxsmall">
+            <div class="calc-overview_title h5">Contacteer ons voor prijzen</div>
+          </div>
+          <div class="calc_product_title-p">
+            Voor kantoren met meer dan 100 medewerkers, vragen we dat je kort even contact op neemt.
+          </div>
+        </div>
+        <div class="calc_product_line"></div>
+        <div class="calc-overview_total-wrap">
+          <div data-wf--button--variant="blue-10" class="button_wrap">
+            <a
+              href="/boek-een-demo"
+              class="button w-variant-cc396da6-d26e-8ebd-0a0f-5c4caf44dc87 w-inline-block"
+              ><div>Neem contact op</div></a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="calc-overview_content">
+        <div class="calc-overview_title h5">Jouw pakket</div>
+        <div class="calc-overview_list">
+          <div data-summary-item="pb" class="calc-overview_item is-hidden">
+            <div class="calc-overview_overflow">
+              <div class="calc-overview_item_padding">
+                <div class="calc-overview_item_inner">
                   <div class="calc-overview_item_content">
                     <div class="calc-overview_item_title">Personenbelasting</div>
                     <div class="calc-overview_p">
-                      <span data-summary-qty="pb">5.000</span><span>&nbsp;x </span><span>€</span
+                      <span data-summary-qty="pb">250</span><span>&nbsp;x </span><span>€</span
                       ><span data-summary-unit="pb">20</span><span>&nbsp;per aangifte</span>
                     </div>
                   </div>
@@ -810,11 +922,17 @@
                     </div>
                   </div>
                 </div>
-                <div data-summary-item="blt" class="calc-overview_item is-hidden">
+              </div>
+            </div>
+          </div>
+          <div data-summary-item="blt" class="calc-overview_item is-hidden">
+            <div class="calc-overview_overflow">
+              <div class="calc-overview_item_padding">
+                <div class="calc-overview_item_inner">
                   <div class="calc-overview_item_content">
                     <div class="calc-overview_item_title">Bedrijfsleidertool</div>
                     <div class="calc-overview_p">
-                      <span data-summary-qty="blt">5.000</span><span>&nbsp;x </span><span>€</span
+                      <span data-summary-qty="blt">300</span><span>&nbsp;x </span><span>€</span
                       ><span data-summary-unit="blt">30</span><span>&nbsp;per dossier</span>
                     </div>
                   </div>
@@ -853,15 +971,69 @@
                     </div>
                   </div>
                 </div>
-                <div data-summary-item="optimize" class="calc-overview_item is-hidden">
+              </div>
+            </div>
+          </div>
+          <div data-summary-item="optimize" class="calc-overview_item is-hidden">
+            <div class="calc-overview_overflow">
+              <div class="calc-overview_item_padding">
+                <div class="calc-overview_item_inner">
                   <div class="calc-overview_item_content">
                     <div class="calc-overview_item_title">Optimize</div>
                     <div class="calc-overview_p">
                       <span>Bedrijfsgrootte: </span><span data-summary-unit="optimize">1-5</span>
                     </div>
                   </div>
-                  <div data-summary-price="optimize" class="calc-overview_item_price">€0</div>
                   <div data-summary-remove="optimize" class="calc-overview_x">
+                    <div class="calc-overview_x-svg w-embed">
+                      <svg
+                        width=" 100%"
+                        height=" 100%"
+                        viewBox="0 0 32 32"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clip-path="url(#clip0_13035_13127)">
+                          <path
+                            d="M25 7L7 25"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          ></path>
+                          <path
+                            d="M25 25L7 7"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          ></path>
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_13035_13127">
+                            <rect width="32" height="32" fill="currentColor"></rect>
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+                  </div>
+                  <div data-summary-price="optimize" class="calc-overview_item_price">€0</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div data-summary-item="myminfin" class="calc-overview_item is-hidden">
+            <div class="calc-overview_overflow">
+              <div class="calc-overview_item_padding">
+                <div class="calc-overview_item_inner">
+                  <div class="calc-overview_item_content">
+                    <div class="calc-overview_item_title">Smart Assistant</div>
+                    <div class="calc-overview_p">
+                      <span>Aantal dossiers: </span><span data-summary-qty="myminfin">1.000</span>
+                    </div>
+                  </div>
+                  <div data-summary-price="myminfin" class="calc-overview_item_price"></div>
+                  <div data-summary-remove="myminfin" class="calc-overview_x">
                     <div class="calc-overview_x-svg w-embed">
                       <svg
                         width=" 100%"
@@ -896,32 +1068,32 @@
                   </div>
                 </div>
               </div>
-              <div class="calc_product_line"></div>
-              <div class="calc-overview_total-wrap">
-                <div class="calc-overview_total-row_list">
-                  <div class="calc-overview_total-row">
-                    <div>Totaal</div>
-                    <span
-                      ><span data-summary-total="" class="is-hidden">€0</span
-                      ><span>&nbsp;/ jaar</span></span
-                    >
-                  </div>
-                  <div class="calc-overview_total-row">
-                    <div>Of per maand</div>
-                    <span
-                      ><span data-summary-monthly="" class="is-hidden">€0</span
-                      ><span>&nbsp;/ maand</span></span
-                    >
-                  </div>
-                </div>
-                <div data-wf--button--variant="base" class="button_wrap">
-                  <a href="#" class="button w-inline-block"><div>Boek een demo</div></a>
-                </div>
-              </div>
             </div>
+          </div>
+        </div>
+        <div class="calc_product_line"></div>
+        <div class="calc-overview_total-wrap">
+          <div class="calc-overview_total-row_list">
+            <div class="calc-overview_total-row">
+              <div>Totaal</div>
+              <span
+                ><span data-summary-total="" class="is-hidden">€0</span
+                ><span>&nbsp;/ jaar</span></span
+              >
+            </div>
+            <div class="calc-overview_total-row o-40">
+              <div>Of per maand</div>
+              <span
+                ><span data-summary-monthly="" class="is-hidden">€0</span
+                ><span>&nbsp;/ maand</span></span
+              >
+            </div>
+          </div>
+          <div data-wf--button--variant="base" class="button_wrap">
+            <a href="#" class="button w-inline-block"><div>Boek een demo</div></a>
           </div>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>

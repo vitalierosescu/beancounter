@@ -6,9 +6,22 @@ export function initPricing() {
   const wrapper = document.querySelector('[data-pricing="calculator"]')
   if (!wrapper) return
 
+  injectSpinnerCSS()
+
   const config = readConfig(wrapper)
   const state = createState(config)
   const dom = queryDOM(wrapper)
+
+  // Read initial active states from DOM
+  ;['pb', 'blt', 'optimize', 'myminfin'].forEach((key) => {
+    if (dom.cards[key]?.classList.contains('is-active')) {
+      state[key].active = true
+    }
+  })
+  const activeTier = wrapper.querySelector('[data-pricing-tier].is-active')
+  if (activeTier && state.optimize.active) {
+    state.optimize.tier = activeTier.dataset.pricingTier
+  }
 
   initDetails(dom)
   bindEvents(dom, state, config)
@@ -30,6 +43,13 @@ function readConfig(wrapper) {
     config.blt.min = Number(bltCard.dataset.min) || config.blt.min
     config.blt.max = Number(bltCard.dataset.max) || config.blt.max
     if (bltCard.dataset.default) config.blt.default = Number(bltCard.dataset.default)
+  }
+
+  const myminfinCard = wrapper.querySelector('[data-pricing-card="myminfin"]')
+  if (myminfinCard) {
+    config.myminfin.min = Number(myminfinCard.dataset.min) || config.myminfin.min
+    config.myminfin.max = Number(myminfinCard.dataset.max) || config.myminfin.max
+    if (myminfinCard.dataset.default) config.myminfin.default = Number(myminfinCard.dataset.default)
   }
 
   const tierButtons = wrapper.querySelectorAll('[data-pricing-tier]')
@@ -75,6 +95,7 @@ function queryDOM(wrapper) {
     inputs: {
       pb: q('[data-pricing-card="pb"] [data-pricing-input]'),
       blt: q('[data-pricing-card="blt"] [data-pricing-input]'),
+      myminfin: q('[data-pricing-card="myminfin"] [data-pricing-input]'),
     },
     prices: {
       optimize: q('[data-pricing-card="optimize"] [data-pricing-price]'),
@@ -103,10 +124,7 @@ function queryDOM(wrapper) {
       },
     },
     tierButtons: qAll('[data-pricing-tier]'),
-    myminfin: {
-      dossiers: q('[data-pricing-dossiers]'),
-      cost: q('[data-pricing-myminfin-cost]'),
-    },
+    myminfin: {},
     summary: {
       panel: q('[data-pricing="summary"]'),
       items: {
@@ -130,6 +148,7 @@ function queryDOM(wrapper) {
       qty: {
         pb: q('[data-summary-qty="pb"]'),
         blt: q('[data-summary-qty="blt"]'),
+        myminfin: q('[data-summary-qty="myminfin"]'),
       },
       unit: {
         pb: q('[data-summary-unit="pb"]'),
@@ -141,6 +160,7 @@ function queryDOM(wrapper) {
       earlybird: q('[data-summary-earlybird]'),
       volume: q('[data-summary-volume]'),
       enterprise: q('[data-summary-enterprise]'),
+      content: q('[data-pricing="summary"] .calc-overview_content'),
       cta: q('[data-summary-cta]'),
     },
   }
@@ -158,7 +178,16 @@ function bindEvents(dom, state, config) {
     if (!toggle) return
 
     toggle.addEventListener('click', () => {
-      if (key === 'myminfin' && !state.pb.active && !state.blt.active) return
+      if (key === 'myminfin' && !state.pb.active && !state.blt.active) {
+        const comboTag = dom.cards.myminfin?.querySelector('.addon_tag.is-combo')
+        if (comboTag) {
+          comboTag.classList.add('is-shaking')
+          comboTag.addEventListener('animationend', () => comboTag.classList.remove('is-shaking'), {
+            once: true,
+          })
+        }
+        return
+      }
 
       state[key].active = !state[key].active
 
@@ -166,22 +195,15 @@ function bindEvents(dom, state, config) {
         state.myminfin.active = false
       }
 
-      if (key === 'optimize' && !state.optimize.active) {
-        state.optimize.tier = null
-      }
-
       update()
     })
   })
-
   ;['pb', 'blt', 'optimize', 'myminfin'].forEach((key) => {
     const btn = dom.summary.removeButtons[key]
     if (!btn) return
 
     btn.addEventListener('click', () => {
       state[key].active = false
-
-      if (key === 'optimize') state.optimize.tier = null
 
       if ((key === 'pb' || key === 'blt') && !state.pb.active && !state.blt.active) {
         state.myminfin.active = false
@@ -198,11 +220,15 @@ function bindEvents(dom, state, config) {
       update()
     })
   })
-
   ;['pb', 'blt'].forEach((key) => {
     const slider = dom.sliders[key]
     const input = dom.inputs[key]
     if (!slider || !input) return
+
+    const step = Number(slider.step) || 50
+    const card = dom.cards[key]
+    const decBtn = card?.querySelector('[data-pricing-decrement]')
+    const incBtn = card?.querySelector('[data-pricing-increment]')
 
     slider.addEventListener('input', () => {
       const val = clampValue(Number(slider.value), config[key].min, config[key].max)
@@ -213,16 +239,79 @@ function bindEvents(dom, state, config) {
 
     input.addEventListener('input', () => {
       const raw = input.value.replace(/\D/g, '')
-      const val = clampValue(Number(raw) || config[key].min, config[key].min, config[key].max)
-      state[key].quantity = val
-      slider.value = val
+      const num = Number(raw)
+      if (!num) return
+      state[key].quantity = Math.min(num, config[key].max)
+      slider.value = state[key].quantity
       update()
     })
 
     input.addEventListener('blur', () => {
+      state[key].quantity = clampValue(state[key].quantity, config[key].min, config[key].max)
       input.value = state[key].quantity
+      slider.value = state[key].quantity
+      update()
     })
+
+    const stepValue = (direction) => {
+      const val = clampValue(
+        state[key].quantity + direction * step,
+        config[key].min,
+        config[key].max
+      )
+      state[key].quantity = val
+      slider.value = val
+      input.value = val
+      update()
+    }
+
+    if (decBtn) decBtn.addEventListener('click', () => stepValue(-1))
+    if (incBtn) incBtn.addEventListener('click', () => stepValue(1))
   })
+
+  // MyMinFin input (no slider) - stop propagation so clicks don't trigger the toggle
+  const mmInput = dom.inputs.myminfin
+  if (mmInput) {
+    const mmCard = dom.cards.myminfin
+    const mmStep = config.myminfin.step || 100
+    const mmDec = mmCard?.querySelector('[data-pricing-decrement]')
+    const mmInc = mmCard?.querySelector('[data-pricing-increment]')
+    const mmWrap = mmCard?.querySelector('.range-value_wrap')
+
+    if (mmWrap) mmWrap.addEventListener('click', (e) => e.stopPropagation())
+
+    mmInput.addEventListener('input', () => {
+      const raw = mmInput.value.replace(/\D/g, '')
+      const num = Number(raw)
+      if (!num) return
+      state.myminfin.quantity = Math.min(num, config.myminfin.max)
+      update()
+    })
+
+    mmInput.addEventListener('blur', () => {
+      state.myminfin.quantity = clampValue(
+        state.myminfin.quantity,
+        config.myminfin.min,
+        config.myminfin.max
+      )
+      mmInput.value = state.myminfin.quantity
+      update()
+    })
+
+    const mmStep_ = (direction) => {
+      const val = clampValue(
+        state.myminfin.quantity + direction * mmStep,
+        config.myminfin.min,
+        config.myminfin.max
+      )
+      state.myminfin.quantity = val
+      mmInput.value = val
+      update()
+    }
+
+    if (mmDec) mmDec.addEventListener('click', () => mmStep_(-1))
+    if (mmInc) mmInc.addEventListener('click', () => mmStep_(1))
+  }
 }
 
 function clampValue(val, min, max) {
@@ -293,7 +382,7 @@ function render(dom, state, config) {
           dom.prices.optimizeOriginal.textContent = formatPrice(result.optimizeStandardCost)
         }
       }
-    } else {
+    } else if (state.optimize.active) {
       dom.prices.optimize.textContent = ''
       if (dom.prices.optimizeOriginal) dom.prices.optimizeOriginal.classList.add('is-hidden')
     }
@@ -303,15 +392,9 @@ function render(dom, state, config) {
     btn.classList.toggle('is-active', btn.dataset.pricingTier === state.optimize.tier)
   })
 
-  if (dom.myminfin.dossiers) {
-    dom.myminfin.dossiers.textContent = state.myminfin.active
-      ? result.myminfinDossiers.toLocaleString('nl-BE')
-      : ''
-  }
-  if (dom.myminfin.cost) {
-    dom.myminfin.cost.textContent = state.myminfin.active
-      ? formatPrice(result.myminfinBillable * config.myminfin.unitPrice) + '/maand'
-      : ''
+  // Sync myminfin input value
+  if (dom.inputs.myminfin) {
+    dom.inputs.myminfin.value = state.myminfin.quantity
   }
 
   ;['pb', 'blt', 'optimize', 'myminfin'].forEach((key) => {
@@ -322,13 +405,18 @@ function render(dom, state, config) {
   })
 
   if (dom.summary.prices.pb) dom.summary.prices.pb.textContent = formatPrice(result.pbCost)
-  if (dom.summary.prices.blt) dom.summary.prices.blt.textContent = formatPrice(result.bltCost)
+  if (dom.summary.prices.blt)
+    dom.summary.prices.blt.textContent = formatPrice(result.bltCost)
 
-  // Summary qty/unit
+    // Summary qty/unit
   ;['pb', 'blt'].forEach((key) => {
-    if (dom.summary.qty[key]) dom.summary.qty[key].textContent = state[key].quantity.toLocaleString('nl-BE')
+    if (dom.summary.qty[key])
+      dom.summary.qty[key].textContent = state[key].quantity.toLocaleString('nl-BE')
     if (dom.summary.unit[key]) dom.summary.unit[key].textContent = config[key].unitPrice
   })
+  if (dom.summary.qty.myminfin) {
+    dom.summary.qty.myminfin.textContent = state.myminfin.quantity.toLocaleString('nl-BE')
+  }
   if (dom.summary.prices.optimize)
     dom.summary.prices.optimize.textContent = formatPrice(result.optimizeCost)
   if (dom.summary.unit.optimize && state.optimize.tier) {
@@ -336,9 +424,13 @@ function render(dom, state, config) {
     dom.summary.unit.optimize.textContent = tierLabel
   }
   if (dom.summary.prices.myminfin) {
-    dom.summary.prices.myminfin.textContent = state.myminfin.active
-      ? formatPrice(result.myminfinCost) + '/jaar'
-      : ''
+    if (!state.myminfin.active) {
+      dom.summary.prices.myminfin.textContent = ''
+    } else if (result.myminfinCost === 0) {
+      dom.summary.prices.myminfin.textContent = 'Gratis'
+    } else {
+      dom.summary.prices.myminfin.textContent = formatPrice(result.myminfinCost) + '/jaar'
+    }
   }
 
   const hasAnyActive = state.pb.active || state.blt.active || state.optimize.active
@@ -348,15 +440,45 @@ function render(dom, state, config) {
   }
   if (dom.summary.monthly) {
     dom.summary.monthly.classList.toggle('is-hidden', !hasAnyActive || result.isEnterprise)
-    dom.summary.monthly.textContent =
-      result.monthly !== null ? formatPrice(result.monthly) : ''
+    dom.summary.monthly.textContent = result.monthly !== null ? formatPrice(result.monthly) : ''
   }
 
   if (dom.summary.enterprise) {
-    dom.summary.enterprise.classList.toggle('is-hidden', !result.isEnterprise)
+    dom.summary.enterprise.classList.toggle('hide', !result.isEnterprise)
+  }
+
+  if (dom.summary.content) {
+    dom.summary.content.classList.toggle('hide', result.isEnterprise)
   }
 
   if (dom.summary.volume) {
     dom.summary.volume.classList.toggle('is-hidden', !result.showVolumeDiscount)
   }
+}
+
+function injectSpinnerCSS() {
+  if (document.getElementById('pricing-spinner-css')) return
+  const style = document.createElement('style')
+  style.id = 'pricing-spinner-css'
+  style.textContent = `
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-4px); }
+      40% { transform: translateX(4px); }
+      60% { transform: translateX(-3px); }
+      80% { transform: translateX(3px); }
+    }
+    .addon_tag.is-shaking {
+      animation: shake 0.4s ease;
+    }
+  `
+  document.head.appendChild(style)
 }

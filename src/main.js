@@ -3,8 +3,8 @@ import { BREAKPOINTS } from './utils/breakpoints.js'
 import { initHome } from './pages/home.js'
 import { initContact } from './pages/contact.js'
 import { initPricing } from './pages/pricing.js'
+import { initProduct } from './pages/product.js'
 import { initGlobal } from './global.js'
-
 ;(() => {
   // =============================================
   // GSAP SETUP
@@ -31,7 +31,9 @@ import { initGlobal } from './global.js'
 
     if (page.classList.contains('is-home')) initHome()
     if (page.classList.contains('is-contact')) initContact()
-    if (page.classList.contains('is-pricing')) initPricing()
+    if (page.classList.contains('is-pricing') || page.classList.contains('is-product'))
+      initPricing()
+    if (page.classList.contains('is-product')) initProduct()
 
     initGlobal()
   }

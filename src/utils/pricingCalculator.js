@@ -11,15 +11,15 @@ export const DEFAULT_CONFIG = {
       D: { label: '100+', standard: null, combo: null },
     },
   },
-  myminfin: { unitPrice: 0.15, freeDossiers: 1000, multiplier: 1.5 },
+  myminfin: { unitPrice: 0.15, freeDossiers: 1000, comboMultiplier: 1.5, min: 1000, max: 20000, step: 100 },
 }
 
 export function createState(config) {
   return {
     pb: { active: false, quantity: config.pb.default || Math.round(config.pb.max / 4) },
     blt: { active: false, quantity: config.blt.default || Math.round(config.blt.max / 4) },
-    optimize: { active: false, tier: null },
-    myminfin: { active: false },
+    optimize: { active: false, tier: 'A' },
+    myminfin: { active: false, quantity: config.myminfin.default || config.myminfin.freeDossiers },
   }
 }
 
@@ -44,16 +44,15 @@ export function calculate(state, config) {
     }
   }
 
-  // MyMinFin
+  // MyMinFin - user enters dossier count, price = unitPrice * comboMultiplier per dossier/month
   let myminfinDossiers = 0
   let myminfinBillable = 0
   let myminfinCost = 0
   if (state.myminfin.active && isCombo) {
-    const pbQty = state.pb.active ? state.pb.quantity : 0
-    const bltQty = state.blt.active ? state.blt.quantity : 0
-    myminfinDossiers = Math.ceil(Math.max(pbQty, bltQty) * config.myminfin.multiplier)
+    myminfinDossiers = state.myminfin.quantity
     myminfinBillable = Math.max(0, myminfinDossiers - config.myminfin.freeDossiers)
-    myminfinCost = myminfinBillable * config.myminfin.unitPrice * 12
+    const pricePerDossier = config.myminfin.unitPrice * config.myminfin.comboMultiplier
+    myminfinCost = myminfinBillable * pricePerDossier * 12
   }
 
   // Volume discount

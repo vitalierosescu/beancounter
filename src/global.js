@@ -88,22 +88,21 @@ function initDrawPathOnScroll() {
 
         const tlConfig = {
           defaults: {
-            ease: 'power3.inOut',
+            ease: 'power3.out',
           },
         }
 
         if (isHomeHero) {
           tlConfig.scrollTrigger = {
             trigger: wrap,
-            start: 'top 40%%',
+            start: 'top 40%',
             end: 'bottom 30%',
             scrub: true,
           }
         } else if (!isHero) {
           tlConfig.scrollTrigger = {
             trigger: wrap,
-            start: 'clamp(top bottom)',
-            end: 'clamp(bottom center)',
+            start: 'clamp(top 90%)',
             invalidateOnRefresh: true,
           }
         }
@@ -330,13 +329,103 @@ const initFaq = () => {
   })
 }
 
+gsap.registerPlugin(DrawSVGPlugin)
+
+function initDrawRandomUnderline() {
+  const svgVariants = [
+    `<svg width="310" height="40" viewBox="0 0 310 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 20.9999C26.7762 16.2245 49.5532 11.5572 71.7979 14.6666C84.9553 16.5057 97.0392 21.8432 109.987 24.3888C116.413 25.6523 123.012 25.5143 129.042 22.6388C135.981 19.3303 142.586 15.1422 150.092 13.3333C156.799 11.7168 161.702 14.6225 167.887 16.8333C181.562 21.7212 194.975 22.6234 209.252 21.3888C224.678 20.0548 239.912 17.991 255.42 18.3055C272.027 18.6422 288.409 18.867 305 17.9999" stroke="currentColor" stroke-width="10" stroke-linecap="round"/></svg>`,
+    `<svg width="310" height="40" viewBox="0 0 310 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 24.2592C26.233 20.2879 47.7083 16.9968 69.135 13.8421C98.0469 9.5853 128.407 4.02322 158.059 5.14674C172.583 5.69708 187.686 8.66104 201.598 11.9696C207.232 13.3093 215.437 14.9471 220.137 18.3619C224.401 21.4596 220.737 25.6575 217.184 27.6168C208.309 32.5097 197.199 34.281 186.698 34.8486C183.159 35.0399 147.197 36.2657 155.105 26.5837C158.11 22.9053 162.993 20.6229 167.764 18.7924C178.386 14.7164 190.115 12.1115 201.624 10.3984C218.367 7.90626 235.528 7.06127 252.521 7.49276C258.455 7.64343 264.389 7.92791 270.295 8.41825C280.321 9.25056 296 10.8932 305 13.0242" stroke="#E55050" stroke-width="10" stroke-linecap="round"/></svg>`,
+    `<svg width="310" height="40" viewBox="0 0 310 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 29.5014C9.61174 24.4515 12.9521 17.9873 20.9532 17.5292C23.7742 17.3676 27.0987 17.7897 29.6575 19.0014C33.2644 20.7093 35.6481 24.0004 39.4178 25.5014C48.3911 29.0744 55.7503 25.7731 63.3048 21.0292C67.9902 18.0869 73.7668 16.1366 79.3721 17.8903C85.1682 19.7036 88.2173 26.2464 94.4121 27.2514C102.584 28.5771 107.023 25.5064 113.276 20.6125C119.927 15.4067 128.83 12.3333 137.249 15.0014C141.418 16.3225 143.116 18.7528 146.581 21.0014C149.621 22.9736 152.78 23.6197 156.284 24.2514C165.142 25.8479 172.315 17.5185 179.144 13.5014C184.459 10.3746 191.785 8.74853 195.868 14.5292C199.252 19.3205 205.597 22.9057 211.621 22.5014C215.553 22.2374 220.183 17.8356 222.979 15.5569C225.4 13.5845 227.457 11.1105 230.742 10.5292C232.718 10.1794 234.784 12.9691 236.164 14.0014C238.543 15.7801 240.717 18.4775 243.356 19.8903C249.488 23.1729 255.706 21.2551 261.079 18.0014C266.571 14.6754 270.439 11.5202 277.146 13.6125C280.725 14.7289 283.221 17.209 286.393 19.0014C292.321 22.3517 298.255 22.5014 305 22.5014" stroke="#E55050" stroke-width="10" stroke-linecap="round"/></svg>`,
+    `<svg width="310" height="40" viewBox="0 0 310 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.0039 32.6826C32.2307 32.8412 47.4552 32.8277 62.676 32.8118C67.3044 32.807 96.546 33.0555 104.728 32.0775C113.615 31.0152 104.516 28.3028 102.022 27.2826C89.9573 22.3465 77.3751 19.0254 65.0451 15.0552C57.8987 12.7542 37.2813 8.49399 44.2314 6.10216C50.9667 3.78422 64.2873 5.81914 70.4249 5.96641C105.866 6.81677 141.306 7.58809 176.75 8.59886C217.874 9.77162 258.906 11.0553 300 14.4892" stroke="#E55050" stroke-width="10" stroke-linecap="round"/></svg>`,
+    `<svg width="310" height="40" viewBox="0 0 310 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.99805 20.9998C65.6267 17.4649 126.268 13.845 187.208 12.8887C226.483 12.2723 265.751 13.2796 304.998 13.9998" stroke="currentColor" stroke-width="10" stroke-linecap="round"/></svg>`,
+    `<svg width="310" height="40" viewBox="0 0 310 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 29.8857C52.3147 26.9322 99.4329 21.6611 146.503 17.1765C151.753 16.6763 157.115 15.9505 162.415 15.6551C163.28 15.6069 165.074 15.4123 164.383 16.4275C161.704 20.3627 157.134 23.7551 153.95 27.4983C153.209 28.3702 148.194 33.4751 150.669 34.6605C153.638 36.0819 163.621 32.6063 165.039 32.2029C178.55 28.3608 191.49 23.5968 204.869 19.5404C231.903 11.3436 259.347 5.83254 288.793 5.12258C294.094 4.99476 299.722 4.82265 305 5.45025" stroke="#E55050" stroke-width="10" stroke-linecap="round"/></svg>`,
+  ]
+
+  // Add attributes to <svg> elements
+  function decorateSVG(svgEl) {
+    svgEl.setAttribute('preserveAspectRatio', 'none')
+    svgEl.querySelectorAll('path').forEach((path) => {
+      path.setAttribute('stroke', 'currentColor')
+    })
+  }
+
+  let nextIndex = null
+
+  document.querySelectorAll('[data-draw-line]').forEach((container) => {
+    const box = container.querySelector('[data-draw-line-box]')
+    if (!box) return
+
+    let enterTween = null
+    let leaveTween = null
+
+    container.addEventListener('mouseenter', () => {
+      // Don't restart if still playing
+      if (enterTween && enterTween.isActive()) return
+      if (leaveTween && leaveTween.isActive()) leaveTween.kill()
+
+      // Random Start
+      if (nextIndex === null) {
+        nextIndex = Math.floor(Math.random() * svgVariants.length)
+      }
+
+      // Animate Draw
+      box.innerHTML = svgVariants[nextIndex]
+      const svg = box.querySelector('svg')
+      if (svg) {
+        decorateSVG(svg)
+        const path = svg.querySelector('path')
+        if (path) {
+          gsap.set(path, { drawSVG: '0%' })
+          enterTween = gsap.to(path, {
+            duration: 0.5,
+            drawSVG: '100%',
+            ease: 'power2.inOut',
+            onComplete: () => {
+              enterTween = null
+            },
+          })
+        }
+      }
+
+      // Advance for next hover across all items
+      nextIndex = (nextIndex + 1) % svgVariants.length
+    })
+
+    container.addEventListener('mouseleave', () => {
+      const path = box.querySelector('path')
+      if (!path) return
+
+      const playOut = () => {
+        // Don't restart if still drawing out
+        if (leaveTween && leaveTween.isActive()) return
+        leaveTween = gsap.to(path, {
+          duration: 0.5,
+          drawSVG: '100% 100%',
+          ease: 'power2.inOut',
+          onComplete: () => {
+            leaveTween = null
+            box.innerHTML = '' // remove SVG when done
+          },
+        })
+      }
+
+      if (enterTween && enterTween.isActive()) {
+        // Wait until draw-in finishes
+        enterTween.eventCallback('onComplete', playOut)
+      } else {
+        playOut()
+      }
+    })
+  })
+}
+
 function initCascadingSlider() {
   const duration = 0.65
   const ease = 'power3.inOut'
 
   const breakpoints = [
-    { maxWidth: 479, activeWidth: 0.78, siblingWidth: 0.08 },
-    { maxWidth: 767, activeWidth: 0.7, siblingWidth: 0.1 },
+    { maxWidth: 479, activeWidth: 0.78, siblingWidth: 0.08, maxVisible: 1 },
+    { maxWidth: 767, activeWidth: 0.7, siblingWidth: 0.1, maxVisible: 1 },
     { maxWidth: 991, activeWidth: 0.6, siblingWidth: 0.1 },
     { maxWidth: Infinity, activeWidth: 0.6, siblingWidth: 0.13 },
   ]
@@ -344,7 +433,24 @@ function initCascadingSlider() {
   const wrappers = document.querySelectorAll('[data-cascading-slider-wrap]')
   wrappers.forEach(setupInstance)
 
+  let resizeTimer
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer)
+    resizeTimer = setTimeout(function () {
+      wrappers.forEach(setupInstance)
+    }, 150)
+  })
+
+  window.addEventListener('load', function () {
+    wrappers.forEach(setupInstance)
+  })
+
   function setupInstance(wrapper) {
+    if (wrapper._csController) wrapper._csController.abort()
+    const controller = new AbortController()
+    const { signal } = controller
+    wrapper._csController = controller
+
     const viewport = wrapper.querySelector('[data-cascading-viewport]')
     if (!viewport) return
     const prevButton = wrapper.querySelector('[data-cascading-slider-prev]')
@@ -360,6 +466,9 @@ function initCascadingSlider() {
         originalSlides.forEach(function (original) {
           const clone = original.cloneNode(true)
           clone.setAttribute('data-clone', '')
+          clone.querySelectorAll('[data-video-init]').forEach(function (el) {
+            delete el.dataset.videoInit
+          })
           viewport.appendChild(clone)
           slides.push(clone)
         })
@@ -370,19 +479,22 @@ function initCascadingSlider() {
     let activeIndex = 0
     let isAnimating = false
     let slideWidth = 0
+    let maxVisible = 2
     const slotCenters = {}
     const slotWidths = {}
 
     function readGap() {
-      const raw = getComputedStyle(viewport).getPropertyValue('--gap').trim()
+      const slideParent = slides[0] ? slides[0].parentElement : viewport
+      const raw = getComputedStyle(slideParent).getPropertyValue('--gap').trim()
+        || getComputedStyle(viewport).getPropertyValue('--gap').trim()
       if (!raw) return 0
       const temp = document.createElement('div')
       temp.style.width = raw
       temp.style.position = 'absolute'
       temp.style.visibility = 'hidden'
-      viewport.appendChild(temp)
+      slideParent.appendChild(temp)
       const px = temp.offsetWidth
-      viewport.removeChild(temp)
+      slideParent.removeChild(temp)
       return px
     }
 
@@ -405,37 +517,59 @@ function initCascadingSlider() {
 
     function measure() {
       const settings = getSettings()
-      const viewportWidth = viewport.offsetWidth
+      maxVisible = settings.maxVisible ?? 2
+      const slideParent = slides[0] ? slides[0].parentElement : viewport
+      const viewportWidth = slideParent.offsetWidth
       const gap = readGap()
 
       const activeSlideWidth = viewportWidth * settings.activeWidth
       const siblingSlideWidth = viewportWidth * settings.siblingWidth
-      const farSlideWidth = Math.max(
-        0,
-        (viewportWidth - activeSlideWidth - 2 * siblingSlideWidth - 4 * gap) / 2
-      )
+      const farSlideWidth = maxVisible >= 2
+        ? Math.max(0, (viewportWidth - activeSlideWidth - 2 * siblingSlideWidth - 4 * gap) / 2)
+        : 0
 
       slideWidth = activeSlideWidth
 
-      const visibleSlots = [
-        { slot: -2, width: farSlideWidth },
-        { slot: -1, width: siblingSlideWidth },
-        { slot: 0, width: activeSlideWidth },
-        { slot: 1, width: siblingSlideWidth },
-        { slot: 2, width: farSlideWidth },
-      ]
+      const visibleSlots = maxVisible >= 2
+        ? [
+            { slot: -2, width: farSlideWidth },
+            { slot: -1, width: siblingSlideWidth },
+            { slot: 0, width: activeSlideWidth },
+            { slot: 1, width: siblingSlideWidth },
+            { slot: 2, width: farSlideWidth },
+          ]
+        : [
+            { slot: -1, width: siblingSlideWidth },
+            { slot: 0, width: activeSlideWidth },
+            { slot: 1, width: siblingSlideWidth },
+          ]
 
-      let x = 0
+      const totalVisible = visibleSlots.reduce(function (sum, def, i) {
+        return sum + def.width + (i < visibleSlots.length - 1 ? gap : 0)
+      }, 0)
+      const startOffset = (viewportWidth - totalVisible) / 2
+
+      let x = startOffset
       visibleSlots.forEach(function (def, i) {
         slotCenters[String(def.slot)] = x + def.width / 2
         slotWidths[String(def.slot)] = def.width
         if (i < visibleSlots.length - 1) x += def.width + gap
       })
 
-      slotCenters['-3'] = slotCenters['-2'] - farSlideWidth / 2 - gap - farSlideWidth / 2
-      slotWidths['-3'] = farSlideWidth
-      slotCenters['3'] = slotCenters['2'] + farSlideWidth / 2 + gap + farSlideWidth / 2
-      slotWidths['3'] = farSlideWidth
+      const outerSlot = maxVisible + 1
+
+      if (maxVisible >= 2) {
+        slotCenters['-3'] = slotCenters['-2'] - farSlideWidth / 2 - gap - farSlideWidth / 2
+        slotWidths['-3'] = farSlideWidth
+        slotCenters['3'] = slotCenters['2'] + farSlideWidth / 2 + gap + farSlideWidth / 2
+        slotWidths['3'] = farSlideWidth
+      } else {
+        // 3-slot mode: park fully off-screen so they don't peek in
+        slotCenters[String(-outerSlot)] = -slideWidth / 2
+        slotWidths[String(-outerSlot)] = slideWidth
+        slotCenters[String(outerSlot)] = viewportWidth + slideWidth / 2
+        slotWidths[String(outerSlot)] = slideWidth
+      }
 
       slides.forEach(function (slide) {
         slide.style.width = slideWidth + 'px'
@@ -443,7 +577,8 @@ function initCascadingSlider() {
     }
 
     function getSlideProps(offset) {
-      const clamped = Math.max(-3, Math.min(3, offset))
+      const park = maxVisible + 1
+      const clamped = Math.max(-park, Math.min(park, offset))
       const slotWidth = slotWidths[String(clamped)]
       const clipAmount = Math.max(0, (slideWidth - slotWidth) / 2)
       const translateX = slotCenters[String(clamped)] - slideWidth / 2
@@ -459,11 +594,12 @@ function initCascadingSlider() {
       slides.forEach(function (slide, index) {
         const offset = getOffset(index)
 
-        if (offset < -3 || offset > 3) {
+        const park = maxVisible + 1
+        if (offset < -park || offset > park) {
           if (animate && previousIndex !== undefined) {
             const previousOffset = getOffset(index, previousIndex)
-            if (previousOffset >= -2 && previousOffset <= 2) {
-              const exitSlot = previousOffset < 0 ? -3 : 3
+            if (previousOffset >= -maxVisible && previousOffset <= maxVisible) {
+              const exitSlot = previousOffset < 0 ? -park : park
               gsap.to(
                 slide,
                 Object.assign({}, getSlideProps(exitSlot), {
@@ -476,7 +612,7 @@ function initCascadingSlider() {
             }
           }
 
-          const parkSlot = offset < 0 ? -3 : 3
+          const parkSlot = offset < 0 ? -park : park
           gsap.set(slide, getSlideProps(parkSlot))
           return
         }
@@ -510,19 +646,20 @@ function initCascadingSlider() {
       slides.forEach(function (slide, index) {
         const currentOffset = getOffset(index, previousIndex)
         const nextOffset = getOffset(index, normalizedTarget)
-        const wasInRange = currentOffset >= -3 && currentOffset <= 3
-        const willBeVisible = nextOffset >= -2 && nextOffset <= 2
+        const park = maxVisible + 1
+        const wasInRange = currentOffset >= -park && currentOffset <= park
+        const willBeVisible = nextOffset >= -maxVisible && nextOffset <= maxVisible
 
         if (!wasInRange && willBeVisible) {
-          const entrySlot = travelDirection > 0 ? 3 : -3
+          const entrySlot = travelDirection > 0 ? park : -park
           gsap.set(slide, getSlideProps(entrySlot))
         }
 
-        const wasInvisible = Math.abs(currentOffset) >= 3
-        const willBeStaging = Math.abs(nextOffset) === 3
+        const wasInvisible = Math.abs(currentOffset) >= park
+        const willBeStaging = Math.abs(nextOffset) === park
         const crossesSides = currentOffset * nextOffset < 0
         if (wasInvisible && willBeStaging && crossesSides) {
-          gsap.set(slide, getSlideProps(nextOffset > 0 ? 3 : -3))
+          gsap.set(slide, getSlideProps(nextOffset > 0 ? park : -park))
         }
       })
 
@@ -534,33 +671,20 @@ function initCascadingSlider() {
     }
 
     if (prevButton)
-      prevButton.addEventListener('click', function () {
-        goTo(activeIndex - 1)
-      })
+      prevButton.addEventListener('click', function () { goTo(activeIndex - 1) }, { signal })
     if (nextButton)
-      nextButton.addEventListener('click', function () {
-        goTo(activeIndex + 1)
-      })
+      nextButton.addEventListener('click', function () { goTo(activeIndex + 1) }, { signal })
 
     slides.forEach(function (slide, index) {
       slide.addEventListener('click', function () {
         if (index !== activeIndex) goTo(index)
-      })
+      }, { signal })
     })
 
     document.addEventListener('keydown', function (event) {
       if (event.key === 'ArrowLeft') goTo(activeIndex - 1)
       if (event.key === 'ArrowRight') goTo(activeIndex + 1)
-    })
-
-    let resizeTimer
-    window.addEventListener('resize', function () {
-      clearTimeout(resizeTimer)
-      resizeTimer = setTimeout(function () {
-        measure()
-        layout(false)
-      }, 100)
-    })
+    }, { signal })
 
     measure()
     layout(false)
@@ -573,7 +697,10 @@ export function initGlobal() {
   initDrawPathOnScroll()
   initTabSystem()
   initFaq()
+  initSliderVideoLazyLoad()
   initCascadingSlider()
   initSliderVideoLazyLoad()
   initBunnyLightboxPlayer()
+
+  //initDrawRandomUnderline()
 }
