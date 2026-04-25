@@ -146,7 +146,7 @@ function initTabSystem() {
     const visualItems = wrapper.querySelectorAll('[data-tabs="visual-item"]')
 
     const autoplay = wrapper.dataset.tabsAutoplay === 'true'
-    const autoplayDuration = parseInt(wrapper.dataset.tabsAutoplayDuration) || 5000
+    const autoplayDuration = parseInt(wrapper.dataset.tabsAutoplayDuration) || 8000
 
     let activeContent = null // keep track of active item/link
     let activeVisual = null
@@ -329,6 +329,44 @@ const initFaq = () => {
   })
 }
 
+function initHighlightText() {
+  let splitHeadingTargets = document.querySelectorAll('[data-highlight-text]')
+  splitHeadingTargets.forEach((heading) => {
+    const scrollStart = heading.getAttribute('data-highlight-scroll-start') || 'top 90%'
+    const scrollEnd = heading.getAttribute('data-highlight-scroll-end') || 'center 40%'
+    const fadedValue = heading.getAttribute('data-highlight-fade') || 0.2 // Opacity of letter
+    const staggerValue = heading.getAttribute('data-highlight-stagger') || 0.1 // Smoother reveal
+
+    new SplitText(heading, {
+      type: 'words, chars',
+      autoSplit: true,
+      onSplit(self) {
+        let ctx = gsap.context(() => {
+          let tl = gsap.timeline({
+            scrollTrigger: {
+              scrub: true,
+              trigger: heading,
+              start: scrollStart,
+              end: scrollEnd,
+            },
+          })
+          tl.from(self.chars, {
+            autoAlpha: fadedValue,
+            stagger: staggerValue,
+            ease: 'linear',
+          })
+        })
+        return ctx // return our animations so GSAP can clean them up when onSplit fires
+      },
+    })
+  })
+}
+
+// Initialize Highlight Text on Scroll
+document.addEventListener('DOMContentLoaded', () => {
+  initHighlightText()
+})
+
 gsap.registerPlugin(DrawSVGPlugin)
 
 function initDrawRandomUnderline() {
@@ -485,8 +523,9 @@ function initCascadingSlider() {
 
     function readGap() {
       const slideParent = slides[0] ? slides[0].parentElement : viewport
-      const raw = getComputedStyle(slideParent).getPropertyValue('--gap').trim()
-        || getComputedStyle(viewport).getPropertyValue('--gap').trim()
+      const raw =
+        getComputedStyle(slideParent).getPropertyValue('--gap').trim() ||
+        getComputedStyle(viewport).getPropertyValue('--gap').trim()
       if (!raw) return 0
       const temp = document.createElement('div')
       temp.style.width = raw
@@ -524,25 +563,27 @@ function initCascadingSlider() {
 
       const activeSlideWidth = viewportWidth * settings.activeWidth
       const siblingSlideWidth = viewportWidth * settings.siblingWidth
-      const farSlideWidth = maxVisible >= 2
-        ? Math.max(0, (viewportWidth - activeSlideWidth - 2 * siblingSlideWidth - 4 * gap) / 2)
-        : 0
+      const farSlideWidth =
+        maxVisible >= 2
+          ? Math.max(0, (viewportWidth - activeSlideWidth - 2 * siblingSlideWidth - 4 * gap) / 2)
+          : 0
 
       slideWidth = activeSlideWidth
 
-      const visibleSlots = maxVisible >= 2
-        ? [
-            { slot: -2, width: farSlideWidth },
-            { slot: -1, width: siblingSlideWidth },
-            { slot: 0, width: activeSlideWidth },
-            { slot: 1, width: siblingSlideWidth },
-            { slot: 2, width: farSlideWidth },
-          ]
-        : [
-            { slot: -1, width: siblingSlideWidth },
-            { slot: 0, width: activeSlideWidth },
-            { slot: 1, width: siblingSlideWidth },
-          ]
+      const visibleSlots =
+        maxVisible >= 2
+          ? [
+              { slot: -2, width: farSlideWidth },
+              { slot: -1, width: siblingSlideWidth },
+              { slot: 0, width: activeSlideWidth },
+              { slot: 1, width: siblingSlideWidth },
+              { slot: 2, width: farSlideWidth },
+            ]
+          : [
+              { slot: -1, width: siblingSlideWidth },
+              { slot: 0, width: activeSlideWidth },
+              { slot: 1, width: siblingSlideWidth },
+            ]
 
       const totalVisible = visibleSlots.reduce(function (sum, def, i) {
         return sum + def.width + (i < visibleSlots.length - 1 ? gap : 0)
@@ -671,20 +712,40 @@ function initCascadingSlider() {
     }
 
     if (prevButton)
-      prevButton.addEventListener('click', function () { goTo(activeIndex - 1) }, { signal })
+      prevButton.addEventListener(
+        'click',
+        function () {
+          goTo(activeIndex - 1)
+        },
+        { signal }
+      )
     if (nextButton)
-      nextButton.addEventListener('click', function () { goTo(activeIndex + 1) }, { signal })
+      nextButton.addEventListener(
+        'click',
+        function () {
+          goTo(activeIndex + 1)
+        },
+        { signal }
+      )
 
     slides.forEach(function (slide, index) {
-      slide.addEventListener('click', function () {
-        if (index !== activeIndex) goTo(index)
-      }, { signal })
+      slide.addEventListener(
+        'click',
+        function () {
+          if (index !== activeIndex) goTo(index)
+        },
+        { signal }
+      )
     })
 
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'ArrowLeft') goTo(activeIndex - 1)
-      if (event.key === 'ArrowRight') goTo(activeIndex + 1)
-    }, { signal })
+    document.addEventListener(
+      'keydown',
+      function (event) {
+        if (event.key === 'ArrowLeft') goTo(activeIndex - 1)
+        if (event.key === 'ArrowRight') goTo(activeIndex + 1)
+      },
+      { signal }
+    )
 
     measure()
     layout(false)
@@ -701,6 +762,8 @@ export function initGlobal() {
   initCascadingSlider()
   initSliderVideoLazyLoad()
   initBunnyLightboxPlayer()
+
+  initHighlightText()
 
   //initDrawRandomUnderline()
 }
