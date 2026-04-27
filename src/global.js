@@ -362,11 +362,6 @@ function initHighlightText() {
   })
 }
 
-// Initialize Highlight Text on Scroll
-document.addEventListener('DOMContentLoaded', () => {
-  initHighlightText()
-})
-
 gsap.registerPlugin(DrawSVGPlugin)
 
 function initDrawRandomUnderline() {
@@ -763,7 +758,21 @@ export function initGlobal() {
   initSliderVideoLazyLoad()
   initBunnyLightboxPlayer()
 
-  initHighlightText()
+  const fontsReady =
+    document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()
+  const windowLoaded =
+    document.readyState === 'complete'
+      ? Promise.resolve()
+      : new Promise((res) => window.addEventListener('load', res, { once: true }))
+
+  Promise.all([fontsReady, windowLoaded]).then(() => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        initHighlightText()
+        ScrollTrigger.refresh()
+      })
+    })
+  })
 
   //initDrawRandomUnderline()
 }
