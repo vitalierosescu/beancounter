@@ -329,6 +329,56 @@ const initFaq = () => {
   })
 }
 
+function initNavArticleHover() {
+  const HIDE_DELAY = 200
+
+  document.querySelectorAll('.nav_d-content').forEach((content) => {
+    const links = Array.from(content.querySelectorAll('.nav-d_link'))
+    const items = Array.from(content.querySelectorAll('.nav-d_article_item'))
+    if (!links.length || !items.length) return
+
+    const hideTimers = new Map()
+
+    items.forEach((item) => {
+      item.style.transition = 'opacity var(--nav-hover-transition, 0.2s)'
+      if (item.classList.contains('is--default')) {
+        item.style.opacity = '1'
+        item.style.pointerEvents = 'auto'
+      } else {
+        item.style.opacity = '0'
+        item.style.pointerEvents = 'none'
+      }
+    })
+
+    const show = (item) => {
+      const t = hideTimers.get(item)
+      if (t) {
+        clearTimeout(t)
+        hideTimers.delete(item)
+      }
+      item.style.opacity = '1'
+      item.style.pointerEvents = 'auto'
+    }
+
+    const hide = (item) => {
+      if (item.classList.contains('is--default')) return
+      const t = setTimeout(() => {
+        item.style.opacity = '0'
+        item.style.pointerEvents = 'none'
+        hideTimers.delete(item)
+      }, HIDE_DELAY)
+      hideTimers.set(item, t)
+    }
+
+    links.forEach((link, index) => {
+      const item = items[index]
+      if (!item) return
+      link.addEventListener('mouseenter', () => show(item))
+      link.addEventListener('mouseleave', () => hide(item))
+    })
+  })
+}
+
 function initHighlightText() {
   let splitHeadingTargets = document.querySelectorAll('[data-highlight-text]')
   splitHeadingTargets.forEach((heading) => {
@@ -757,6 +807,7 @@ export function initGlobal() {
   initCascadingSlider()
   initSliderVideoLazyLoad()
   initBunnyLightboxPlayer()
+  initNavArticleHover()
 
   const fontsReady =
     document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()
