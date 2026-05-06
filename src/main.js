@@ -4,6 +4,7 @@ import { initHome } from './pages/home.js'
 import { initContact } from './pages/contact.js'
 import { initPricing } from './pages/pricing.js'
 import { initProduct } from './pages/product.js'
+import { initBeanTV } from './pages/beanTV.js'
 import { initGlobal } from './global.js'
 ;(() => {
   // =============================================
@@ -34,6 +35,7 @@ import { initGlobal } from './global.js'
     if (page.classList.contains('is-pricing') || page.classList.contains('is-product'))
       initPricing()
     if (page.classList.contains('is-product')) initProduct()
+    if (page.classList.contains('is-bean-tv')) initBeanTV()
 
     initGlobal()
   }
