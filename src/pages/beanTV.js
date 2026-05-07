@@ -176,11 +176,18 @@ function whenPlyrReady(cb, attempts = 30) {
   setTimeout(() => whenPlyrReady(cb, attempts - 1), 100)
 }
 
+function initInlinePlayers() {
+  document.querySelectorAll('[video-component="player"]').forEach((el) => {
+    new window.Plyr(el)
+  })
+}
+
 export function initBeanTV() {
   whenPlyrReady(() => {
     injectStyles()
     buildModal()
     initFeaturedPlayer()
     initListModal()
+    initInlinePlayers()
   })
 }
