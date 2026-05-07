@@ -91,7 +91,7 @@ function initFeaturedPlayer() {
 
   const player = new window.Plyr(iframe, {
     youtube: { noCookie: true, rel: 0 },
-    controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+    controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings'],
   })
 
   const overlayBtn = document.querySelector('.blog_play-btn')
@@ -137,7 +137,7 @@ function initListModal() {
 
     player = new Plyr(`#${PLYR_TARGET_ID} iframe`, {
       youtube: { noCookie: true, rel: 0 },
-      controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+      controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings'],
     })
 
     player.on('ready', () => player.play())
@@ -148,7 +148,13 @@ function initListModal() {
   }
 
   function closeModal() {
-    if (player) player.pause()
+    if (player) {
+      try {
+        player.destroy()
+      } catch (_) {}
+      player = null
+    }
+    playerWrap.innerHTML = ''
     modalEl.setAttribute('aria-hidden', 'true')
     document.body.style.overflow = ''
   }
@@ -178,7 +184,16 @@ function whenPlyrReady(cb, attempts = 30) {
 
 function initInlinePlayers() {
   document.querySelectorAll('[video-component="player"]').forEach((el) => {
-    new window.Plyr(el)
+    new window.Plyr(el, {
+      youtube: {
+        noCookie: true,
+        rel: 0,
+        showinfo: 0,
+        modestbranding: 1,
+        iv_load_policy: 3,
+      },
+      controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings'],
+    })
   })
 }
 
