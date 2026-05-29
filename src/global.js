@@ -1,6 +1,7 @@
 import { splitReveal } from './utils/splitReveal.js'
 import { initSliderVideoLazyLoad } from './utils/videoLazyLoad.js'
 import { initBunnyLightboxPlayer } from './utils/bunnyLightboxPlayer.js'
+import { initBannerCountdown } from './utils/bannerCountdown.js'
 
 function initTextAnimations() {
   document.querySelectorAll('[data-split]').forEach((el) => {
@@ -808,6 +809,7 @@ export function initGlobal() {
   initSliderVideoLazyLoad()
   initBunnyLightboxPlayer()
   initNavArticleHover()
+  initBannerCountdown()
 
   const fontsReady =
     document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()
