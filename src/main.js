@@ -5,6 +5,7 @@ import { initContact } from './pages/contact.js'
 import { initPricing } from './pages/pricing.js'
 import { initProduct } from './pages/product.js'
 import { initBeanTV } from './pages/beanTV.js'
+import { initBeanie } from './pages/beanie.js'
 import { initGlobal } from './global.js'
 ;(() => {
   // =============================================
@@ -36,6 +37,9 @@ import { initGlobal } from './global.js'
       initPricing()
     if (page.classList.contains('is-product')) initProduct()
     if (page.classList.contains('is-bean-tv')) initBeanTV()
+    // Beanie shares the is-product wrapper with PB and BLT, so it keys off its
+    // own markup instead of a page class — every init inside guards itself.
+    initBeanie()
 
     initGlobal()
   }
