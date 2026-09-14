@@ -80,12 +80,10 @@ export function calculate(state, config) {
   }
 }
 
-export function formatPrice(value) {
-  if (value === null) return 'Op aanvraag'
-  return (
-    '\u20AC' +
-    Math.round(value)
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, '.')
-  )
+export function formatPrice(value, fr = false) {
+  if (value === null) return fr ? 'Sur demande' : 'Op aanvraag'
+  const amount = Math.round(value)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, fr ? '\u00A0' : '.')
+  return fr ? amount + '\u00A0\u20AC' : '\u20AC' + amount
 }

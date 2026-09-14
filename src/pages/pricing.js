@@ -1,6 +1,11 @@
 // src/pages/pricing.js
 
-import { DEFAULT_CONFIG, createState, calculate, formatPrice } from '../utils/pricingCalculator.js'
+import { DEFAULT_CONFIG, createState, calculate, formatPrice as formatPriceFor } from '../utils/pricingCalculator.js'
+
+// Webflow sets <html lang> per locale (nl-BE / fr-BE)
+const FR = document.documentElement.lang.startsWith('fr')
+const locale = FR ? 'fr-BE' : 'nl-BE'
+const formatPrice = (value) => formatPriceFor(value, FR)
 
 export function initPricing() {
   const wrapper = document.querySelector('[data-pricing="calculator"]')
@@ -359,7 +364,7 @@ function render(dom, state, config) {
     const cost = key === 'pb' ? result.pbCost : result.bltCost
 
     if (dom.cardTotals[key]) dom.cardTotals[key].textContent = formatPrice(cost)
-    if (dom.cardQty[key]) dom.cardQty[key].textContent = state[key].quantity.toLocaleString('nl-BE')
+    if (dom.cardQty[key]) dom.cardQty[key].textContent = state[key].quantity.toLocaleString(locale)
     if (dom.cardUnit[key]) dom.cardUnit[key].textContent = config[key].unitPrice
   })
 
@@ -367,8 +372,8 @@ function render(dom, state, config) {
   ;['pb', 'blt'].forEach((key) => {
     const labels = dom.rangeLabels[key]
     if (!labels) return
-    if (labels.min) labels.min.textContent = config[key].min.toLocaleString('nl-BE')
-    if (labels.max) labels.max.textContent = config[key].max.toLocaleString('nl-BE')
+    if (labels.min) labels.min.textContent = config[key].min.toLocaleString(locale)
+    if (labels.max) labels.max.textContent = config[key].max.toLocaleString(locale)
   })
 
   if (dom.prices.optimize) {
@@ -411,11 +416,11 @@ function render(dom, state, config) {
     // Summary qty/unit
   ;['pb', 'blt'].forEach((key) => {
     if (dom.summary.qty[key])
-      dom.summary.qty[key].textContent = state[key].quantity.toLocaleString('nl-BE')
+      dom.summary.qty[key].textContent = state[key].quantity.toLocaleString(locale)
     if (dom.summary.unit[key]) dom.summary.unit[key].textContent = config[key].unitPrice
   })
   if (dom.summary.qty.myminfin) {
-    dom.summary.qty.myminfin.textContent = state.myminfin.quantity.toLocaleString('nl-BE')
+    dom.summary.qty.myminfin.textContent = state.myminfin.quantity.toLocaleString(locale)
   }
   if (dom.summary.prices.optimize)
     dom.summary.prices.optimize.textContent = formatPrice(result.optimizeCost)
@@ -427,9 +432,9 @@ function render(dom, state, config) {
     if (!state.myminfin.active) {
       dom.summary.prices.myminfin.textContent = ''
     } else if (result.myminfinCost === 0) {
-      dom.summary.prices.myminfin.textContent = 'Gratis'
+      dom.summary.prices.myminfin.textContent = FR ? 'Gratuit' : 'Gratis'
     } else {
-      dom.summary.prices.myminfin.textContent = formatPrice(result.myminfinCost) + '/jaar'
+      dom.summary.prices.myminfin.textContent = formatPrice(result.myminfinCost) + (FR ? '/an' : '/jaar')
     }
   }
 
