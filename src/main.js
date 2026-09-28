@@ -6,6 +6,7 @@ import { initPricing } from './pages/pricing.js'
 import { initProduct } from './pages/product.js'
 import { initBeanTV } from './pages/beanTV.js'
 import { initBeanie } from './pages/beanie.js'
+import { initItaa } from './pages/itaa.js'
 import { initGlobal } from './global.js'
 ;(() => {
   // =============================================
@@ -40,6 +41,8 @@ import { initGlobal } from './global.js'
     // Beanie shares the is-product wrapper with PB and BLT, so it keys off its
     // own markup instead of a page class — every init inside guards itself.
     initBeanie()
+    // Same story for the ITAA congress landing page.
+    initItaa()
 
     initGlobal()
   }
