@@ -381,7 +381,7 @@ function initNavArticleHover() {
 }
 
 function initHighlightText() {
-  let splitHeadingTargets = document.querySelectorAll('[data-highlight-text]')
+  const splitHeadingTargets = document.querySelectorAll('[data-highlight-text]')
   splitHeadingTargets.forEach((heading) => {
     const scrollStart = heading.getAttribute('data-highlight-scroll-start') || 'top 90%'
     const scrollEnd = heading.getAttribute('data-highlight-scroll-end') || 'center 40%'
@@ -392,8 +392,8 @@ function initHighlightText() {
       type: 'words, chars',
       autoSplit: true,
       onSplit(self) {
-        let ctx = gsap.context(() => {
-          let tl = gsap.timeline({
+        const ctx = gsap.context(() => {
+          const tl = gsap.timeline({
             scrollTrigger: {
               scrub: true,
               trigger: heading,

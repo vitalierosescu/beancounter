@@ -331,7 +331,6 @@ const REVEAL_SELECTOR = [
   '.beanie-feature_center',
   '.beanie-feature_wide',
   '.beanie-cmp_head',
-  '.beanie-cmp_row',
   '.beanie-cmp_actions',
   '.beanie-plat_head',
   '.beanie-plat_card',
@@ -369,6 +368,23 @@ function initReveals() {
         // sticks at the wrong offset
         clearProps: 'transform',
       }),
+  })
+}
+
+// The comparison table reads as one block, so its rows come in together on the
+// table's own trigger instead of one-by-one through the batch above.
+function initComparisonRows() {
+  const rows = [...document.querySelectorAll('.beanie-cmp_row')]
+  if (!rows.length || reduceMotion) return
+  if (typeof ScrollTrigger === 'undefined') return
+
+  gsap.from(rows, {
+    autoAlpha: 0,
+    y: 24,
+    duration: 0.8,
+    ease: 'power3.out',
+    stagger: 0.08,
+    scrollTrigger: { trigger: rows[0].parentElement, start: 'top 80%', once: true },
   })
 }
 
@@ -468,4 +484,5 @@ export function initBeanie() {
   initHeroIntro()
   initTabs()
   initReveals()
+  initComparisonRows()
 }
