@@ -183,23 +183,7 @@ function bindEvents(dom, state, config) {
     if (!toggle) return
 
     toggle.addEventListener('click', () => {
-      if (key === 'myminfin' && !state.pb.active && !state.blt.active) {
-        const comboTag = dom.cards.myminfin?.querySelector('.addon_tag.is-combo')
-        if (comboTag) {
-          comboTag.classList.add('is-shaking')
-          comboTag.addEventListener('animationend', () => comboTag.classList.remove('is-shaking'), {
-            once: true,
-          })
-        }
-        return
-      }
-
       state[key].active = !state[key].active
-
-      if ((key === 'pb' || key === 'blt') && !state.pb.active && !state.blt.active) {
-        state.myminfin.active = false
-      }
-
       update()
     })
   })
@@ -209,11 +193,6 @@ function bindEvents(dom, state, config) {
 
     btn.addEventListener('click', () => {
       state[key].active = false
-
-      if ((key === 'pb' || key === 'blt') && !state.pb.active && !state.blt.active) {
-        state.myminfin.active = false
-      }
-
       update()
     })
   })
@@ -340,10 +319,6 @@ function render(dom, state, config) {
     if (!card) return
     card.classList.toggle('is-active', state[key].active)
   })
-
-  if (dom.cards.myminfin) {
-    dom.cards.myminfin.classList.toggle('is-disabled', !isCombo)
-  }
 
   ;['pb', 'blt'].forEach((key) => {
     const slider = dom.sliders[key]

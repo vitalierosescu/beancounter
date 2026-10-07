@@ -11,7 +11,7 @@ export const DEFAULT_CONFIG = {
       D: { label: '100+', standard: null, combo: null },
     },
   },
-  myminfin: { unitPrice: 0.15, freeDossiers: 1000, min: 1000, max: 20000, step: 100 },
+  myminfin: { unitPrice: 0.15, freeDossiers: 1000, min: 100, max: 20000, step: 100 },
 }
 
 export function createState(config) {
@@ -44,13 +44,15 @@ export function calculate(state, config) {
     }
   }
 
-  // MyMinFin - user enters dossier count, price = unitPrice per dossier/month (1,80/yr), first 1000 free
+  // MyMinFin - user enters dossier count, price = unitPrice per dossier/month (1,80/yr)
+  // Standalone allowed; first 1000 free only in combo with PB/BLT
   let myminfinDossiers = 0
   let myminfinBillable = 0
   let myminfinCost = 0
-  if (state.myminfin.active && isCombo) {
+  if (state.myminfin.active) {
     myminfinDossiers = state.myminfin.quantity
-    myminfinBillable = Math.max(0, myminfinDossiers - config.myminfin.freeDossiers)
+    const free = isCombo ? config.myminfin.freeDossiers : 0
+    myminfinBillable = Math.max(0, myminfinDossiers - free)
     myminfinCost = myminfinBillable * config.myminfin.unitPrice * 12
   }
 
