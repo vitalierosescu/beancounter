@@ -805,8 +805,21 @@ function initVolumePakket() {
   if (field && pakket) field.value = pakket
 }
 
+// Form redirects are plain paths in Webflow and don't localize, so send FR visitors to /fr/...
+// Webflow caches the redirect in jQuery data at init, so update that too.
+function initFrFormRedirects() {
+  if (!document.documentElement.lang.startsWith('fr')) return
+  document.querySelectorAll('form[data-redirect^="/"]:not([data-redirect^="/fr/"])').forEach((form) => {
+    const to = '/fr' + form.getAttribute('data-redirect')
+    form.setAttribute('data-redirect', to)
+    const data = window.jQuery?.data(form, '.w-form')
+    if (data) data.redirect = to
+  })
+}
+
 export function initGlobal() {
   initVolumePakket()
+  initFrFormRedirects()
   initTextAnimations()
   initScrollBehavior()
   initDrawPathOnScroll()
