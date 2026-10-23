@@ -164,7 +164,7 @@ function queryDOM(wrapper) {
       monthly: q('[data-summary-monthly]'),
       earlybird: q('[data-summary-earlybird]'),
       volume: q('[data-summary-volume]'),
-      volumeCta: q('[data-volume-cta]'),
+      volumeCta: q('[data-summary-volume] a'),
       enterprise: q('[data-summary-enterprise]'),
       content: q('[data-pricing="summary"] .calc-overview_content'),
       cta: q('[data-summary-cta]'),
