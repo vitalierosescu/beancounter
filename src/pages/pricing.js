@@ -165,6 +165,8 @@ function queryDOM(wrapper) {
       earlybird: q('[data-summary-earlybird]'),
       volume: q('[data-summary-volume]'),
       volumeCta: q('[data-summary-volume] a'),
+      // Page link set in Webflow (follows slug and locale); the package is appended to it
+      volumeCtaBase: q('[data-summary-volume] a')?.getAttribute('href'),
       enterprise: q('[data-summary-enterprise]'),
       content: q('[data-pricing="summary"] .calc-overview_content'),
       cta: q('[data-summary-cta]'),
@@ -434,18 +436,19 @@ function render(dom, state, config) {
 
   if (dom.summary.volume) {
     dom.summary.volume.classList.toggle('hide', !result.showVolumeDiscount)
-    if (dom.summary.volumeCta) dom.summary.volumeCta.href = volumeHref(state, config)
+    if (dom.summary.volumeCta)
+      dom.summary.volumeCta.href = volumeHref(dom.summary.volumeCtaBase, state, config)
   }
 }
 
 // Sends the calculator selection along to the volumekorting form (hidden field "Pakket")
-function volumeHref(state, config) {
+function volumeHref(base, state, config) {
   const parts = []
   if (state.pb.active) parts.push(`PB: ${state.pb.quantity}`)
   if (state.blt.active) parts.push(`BLT: ${state.blt.quantity}`)
   if (state.optimize.active) parts.push(`Optimize: ${config.optimize.tiers[state.optimize.tier].label}`)
   if (state.myminfin.active) parts.push(`MyMinfin: ${state.myminfin.quantity}`)
-  return `${FR ? '/fr' : ''}/volumekorting?pakket=${encodeURIComponent(parts.join(', '))}`
+  return `${base}?pakket=${encodeURIComponent(parts.join(', '))}`
 }
 
 function injectSpinnerCSS() {
