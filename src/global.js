@@ -798,7 +798,15 @@ function initCascadingSlider() {
   }
 }
 
+// Volumekorting form: prefill the hidden "Pakket" field from the calculator link (?pakket=)
+function initVolumePakket() {
+  const field = document.querySelector('[data-volume-pakket]')
+  const pakket = new URLSearchParams(location.search).get('pakket')
+  if (field && pakket) field.value = pakket
+}
+
 export function initGlobal() {
+  initVolumePakket()
   initTextAnimations()
   initScrollBehavior()
   initDrawPathOnScroll()

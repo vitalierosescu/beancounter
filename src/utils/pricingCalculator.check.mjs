@@ -13,4 +13,15 @@ assert.equal(Math.round(mm(300)), 540) // standalone, billed from dossier 1
 assert.equal(Math.round(mm(1200, { pb: true })), 360) // combo, first 1000 free
 assert.equal(mm(800, { blt: true }), 0) // combo under 1000 = Gratis
 assert.equal(Math.round(mm(1200, { optimize: true })), 2160) // Optimize does not unlock free 1000
+const vol = (pb, blt = 0) => {
+  const s = createState(c)
+  s.pb = { active: pb > 0, quantity: pb }
+  s.blt = { active: blt > 0, quantity: blt }
+  return calculate(s, c).showVolumeDiscount
+}
+
+assert.equal(vol(199), false) // just under the threshold
+assert.equal(vol(200), true) // volume discount from 200
+assert.equal(vol(0, 200), true) // BLT dossiers count too
+
 console.log('pricingCalculator ok')

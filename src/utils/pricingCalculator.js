@@ -12,6 +12,8 @@ export const DEFAULT_CONFIG = {
     },
   },
   myminfin: { unitPrice: 0.15, freeDossiers: 1000, min: 100, max: 20000, step: 100 },
+  // PB returns or BLT dossiers from which the volume discount note shows
+  volumeDiscountFrom: 200,
 }
 
 export function createState(config) {
@@ -59,7 +61,8 @@ export function calculate(state, config) {
   // Volume discount
   const pbQtyForVolume = state.pb.active ? state.pb.quantity : 0
   const bltQtyForVolume = state.blt.active ? state.blt.quantity : 0
-  const showVolumeDiscount = pbQtyForVolume > 250 || bltQtyForVolume > 250
+  const showVolumeDiscount =
+    pbQtyForVolume >= config.volumeDiscountFrom || bltQtyForVolume >= config.volumeDiscountFrom
 
   // Total
   const total = isEnterprise ? null : pbCost + bltCost + (optimizeCost ?? 0) + myminfinCost
