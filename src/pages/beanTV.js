@@ -57,6 +57,10 @@ const MODAL_STYLES = `
   width: 100%;
   height: 100%;
 }
+.taal-filter-nl .w-dyn-item:has([data-taal="FR"]),
+.taal-filter-fr .w-dyn-item:has([data-taal="NL"]) {
+  display: none;
+}
 `
 
 function injectStyles() {
@@ -197,7 +201,19 @@ function initInlinePlayers() {
   })
 }
 
+// Cards carry the CMS field "Specifieke taal" as [data-taal]. Finsweet owns the list, so this
+// only hides through CSS. Fails open: until a video is tagged for the page language, every video
+// stays visible. Untagged videos always show. is-bean-tv is also on /blog and /wall-of-love,
+// which have no [data-taal].
+function initTaalFilter() {
+  const taal = document.documentElement.lang.startsWith('fr') ? 'fr' : 'nl'
+  if (!document.querySelector(`[data-taal="${taal.toUpperCase()}"]`)) return
+  injectStyles()
+  document.documentElement.classList.add(`taal-filter-${taal}`)
+}
+
 export function initBeanTV() {
+  initTaalFilter()
   whenPlyrReady(() => {
     injectStyles()
     buildModal()
