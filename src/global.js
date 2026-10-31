@@ -835,10 +835,25 @@ function initPlaceholders() {
   })
 }
 
+// Webflow prints CMS dates in English on every locale ("October 10, 2026") and the API can't
+// change the format. Any other text in these elements is left alone.
+function initBlogDates() {
+  const format = new Intl.DateTimeFormat(document.documentElement.lang || 'nl-BE', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
+  document.querySelectorAll('.blog_tag, .blog_featured-date span').forEach((el) => {
+    const text = el.textContent.trim()
+    if (/^[A-Z][a-z]+ \d{1,2}, \d{4}$/.test(text)) el.textContent = format.format(new Date(text))
+  })
+}
+
 export function initGlobal() {
   initVolumePakket()
   initFrFormRedirects()
   initPlaceholders()
+  initBlogDates()
   initTextAnimations()
   initScrollBehavior()
   initDrawPathOnScroll()
