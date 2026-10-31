@@ -31,6 +31,7 @@ function initTabs() {
   const EXPAND_EASE = 'power2.inOut' // collapse + expand
   const CONTENT_FADE = 1 // reveal in
   const CONTENT_OUT = 0.25 // fade out
+  const VISUAL_IN_AT = 0.25 // incoming visual starts while the outgoing one (0.5s) is still up
   const REVEAL_STAGGER = 0.03
   const BAR_START_DELAY = 0.15
   const BAR_MIN = 4 // px resting nub, matches the rail thickness
@@ -233,11 +234,14 @@ function initTabs() {
       if (incomingVisual) {
         // tab 0 already visible
         if (!(isFirst && index === 0)) {
-          tl.fromTo(
+          // a visual caught mid-exit by a quick click resumes from where it is
+          // instead of snapping to 0, which would empty the stage again
+          if (gsap.getProperty(incomingVisual, 'opacity') === 0)
+            gsap.set(incomingVisual, { x: incoming.dx * 4 + 'rem', y: incoming.dy * 4 + 'rem' })
+          tl.to(
             incomingVisual,
-            { autoAlpha: 0, x: incoming.dx * 4 + 'rem', y: incoming.dy * 4 + 'rem' },
             { autoAlpha: 1, x: '0rem', y: '0rem', duration: 0.8 * D, ease: 'power4.out' },
-            SWITCH_DURATION * D
+            VISUAL_IN_AT * D
           )
         }
       }
