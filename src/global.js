@@ -817,9 +817,28 @@ function initFrFormRedirects() {
   })
 }
 
+// Placeholders can't be localized through the Webflow API, so they are set per language here.
+const PLACEHOLDERS = {
+  '#beantv-zoeken': { fr: 'Rechercher...' },
+  '#blog-zoeken': { fr: 'Rechercher un article...' },
+  // By id: the FR locale keeps its own name attribute ("Naam")
+  '#volumekorting-form #naam': { nl: 'Jan', fr: 'Jean' },
+}
+
+function initPlaceholders() {
+  const lang = document.documentElement.lang.startsWith('fr') ? 'fr' : 'nl'
+  Object.entries(PLACEHOLDERS).forEach(([selector, text]) => {
+    if (!text[lang]) return
+    document.querySelectorAll(selector).forEach((input) => {
+      input.placeholder = text[lang]
+    })
+  })
+}
+
 export function initGlobal() {
   initVolumePakket()
   initFrFormRedirects()
+  initPlaceholders()
   initTextAnimations()
   initScrollBehavior()
   initDrawPathOnScroll()
