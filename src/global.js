@@ -817,21 +817,19 @@ function initFrFormRedirects() {
   })
 }
 
-// Placeholders can't be localized through the Webflow API, so they are set per language here.
-const PLACEHOLDERS = {
-  '#beantv-zoeken': { fr: 'Rechercher...' },
-  '#blog-zoeken': { fr: 'Rechercher un article...' },
+// Placeholders and aria-labels can't be localized through the Webflow API, so they are set per language here.
+const INPUT_TEXTS = {
+  '#beantv-zoeken': { fr: { placeholder: 'Rechercher...', ariaLabel: 'Rechercher dans BeanTV' } },
+  '#blog-zoeken': { fr: { placeholder: 'Rechercher un article...', ariaLabel: 'Rechercher dans le blog' } },
   // By id: the FR locale keeps its own name attribute ("Naam")
-  '#volumekorting-form #naam': { nl: 'Jan', fr: 'Jean' },
+  '#volumekorting-form #naam': { nl: { placeholder: 'Jan' }, fr: { placeholder: 'Jean' } },
 }
 
-function initPlaceholders() {
+function initInputTexts() {
   const lang = document.documentElement.lang.startsWith('fr') ? 'fr' : 'nl'
-  Object.entries(PLACEHOLDERS).forEach(([selector, text]) => {
-    if (!text[lang]) return
-    document.querySelectorAll(selector).forEach((input) => {
-      input.placeholder = text[lang]
-    })
+  Object.entries(INPUT_TEXTS).forEach(([selector, texts]) => {
+    if (!texts[lang]) return
+    document.querySelectorAll(selector).forEach((input) => Object.assign(input, texts[lang]))
   })
 }
 
@@ -852,7 +850,7 @@ function initBlogDates() {
 export function initGlobal() {
   initVolumePakket()
   initFrFormRedirects()
-  initPlaceholders()
+  initInputTexts()
   initBlogDates()
   initTextAnimations()
   initScrollBehavior()
