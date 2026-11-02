@@ -61,6 +61,12 @@ const MODAL_STYLES = `
 .taal-filter-fr .w-dyn-item:has([data-taal="NL"]) {
   display: none;
 }
+[fs-list-element="empty"].is-taal-empty {
+  display: block !important;
+}
+.blog-overview_right:has(> .is-taal-empty) {
+  align-self: center;
+}
 `
 
 function injectStyles() {
@@ -210,6 +216,23 @@ function initTaalFilter() {
   if (!document.querySelector(`[data-taal="${taal.toUpperCase()}"]`)) return
   injectStyles()
   document.documentElement.classList.add(`taal-filter-${taal}`)
+  // Finsweet counts the CSS-hidden cards as results and keeps its empty message hidden, so a
+  // search whose only matches are other-language videos showed nothing. Mark the message when
+  // every remaining card is hidden. (A pure-CSS rule would need :has() inside :has(), which
+  // browsers reject.)
+  const other = taal === 'fr' ? 'NL' : 'FR'
+  document.querySelectorAll('.blog_list-wrap').forEach((wrap) => {
+    const empty = wrap.parentElement.querySelector(':scope > [fs-list-element="empty"]')
+    if (!empty) return
+    const update = () => {
+      const shown = [...wrap.querySelectorAll('.w-dyn-item')].some(
+        (item) => !item.querySelector(`[data-taal="${other}"]`)
+      )
+      empty.classList.toggle('is-taal-empty', !shown)
+    }
+    new MutationObserver(update).observe(wrap, { childList: true, subtree: true })
+    update()
+  })
 }
 
 export function initBeanTV() {
