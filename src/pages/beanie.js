@@ -282,17 +282,19 @@ function initTabs() {
       })
     })
 
-    // autoplay should not yank the panel away while someone is reading or tabbing
-    const hold = () => {
+    // autoplay should not yank the panel away while someone is tabbing through it.
+    // Only keyboard focus holds it: a hover or a click (which also focuses the
+    // tab) used to freeze the bar for as long as the mouse stayed over the section.
+    const hold = (e) => {
+      if (!e.target.matches(':focus-visible')) return
       held = true
       barTween?.pause()
     }
     const release = () => {
+      if (!held) return
       held = false
       if (inView) barTween?.resume()
     }
-    wrap.addEventListener('pointerenter', hold)
-    wrap.addEventListener('pointerleave', release)
     wrap.addEventListener('focusin', hold)
     wrap.addEventListener('focusout', release)
 
