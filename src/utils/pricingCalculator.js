@@ -13,7 +13,7 @@ export const DEFAULT_CONFIG = {
   },
   myminfin: { unitPrice: 0.15, freeDossiers: 1000, min: 100, max: 20000, step: 100 },
   // PB returns or BLT dossiers from which the volume discount note shows
-  volumeDiscountFrom: 200,
+  volumeDiscountFrom: 250,
 }
 
 export function createState(config) {

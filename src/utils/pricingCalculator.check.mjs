@@ -20,8 +20,8 @@ const vol = (pb, blt = 0) => {
   return calculate(s, c).showVolumeDiscount
 }
 
-assert.equal(vol(199), false) // just under the threshold
-assert.equal(vol(200), true) // volume discount from 200
-assert.equal(vol(0, 200), true) // BLT dossiers count too
+assert.equal(vol(249), false) // just under the threshold
+assert.equal(vol(250), true) // volume discount from 250
+assert.equal(vol(0, 250), true) // BLT dossiers count too
 
 console.log('pricingCalculator ok')
